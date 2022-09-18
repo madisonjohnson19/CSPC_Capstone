@@ -10,11 +10,36 @@
   cursor: pointer;
 }
 
-.btn--primary {
-  background-color: var(--primary);
-  color: #242424;
+
+.btn--outline {
+  margin-top: 10rem;
+  background-color: transparent;
+  color: #fff;
+  padding: 8px 20px;
   border: 1px solid var(--primary);
+  transition: all 0.3s ease-out;
 }
+
+.btn--danger{
+  margin-top: 10px;
+  background-color: red;
+  color: #fff;
+  /* border: 1px solid var(--primary); */
+}
+.btn--warning{
+  margin-top: 10px;
+  color: #fff;
+  background-color: #bfac2e;
+
+}
+
+
+.btn--success{
+  margin-top: 10px;
+  background-color: green;
+  color: #fff;
+}
+
 
 .btn--outline {
   background-color: transparent;
@@ -31,6 +56,7 @@
 
 .btn--large {
   padding: 12px 26px;
+  width: 200px;
   font-size: 20px;
 }
 
