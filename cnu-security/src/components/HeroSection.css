@@ -25,10 +25,7 @@
       'Lucida Sans', Arial, sans-serif;
   }
   
-  .hero-btns {
-    margin-top: 34px;
-    
-  }
+
  
   
   .fa-play-circle {
@@ -57,7 +54,7 @@
       text-decoration: none;
     }
   
-    .btns-red {
+    .red{
         background:#9c1f1f ;
         width: 100%;
     }
