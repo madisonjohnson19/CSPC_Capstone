@@ -46,12 +46,12 @@ function Navbar() {
             <li>
             <Button 
              style={{
-              top: "10px",
+              top: "-25px",
               color:"#fff",
               outline: "#fff",
               borderColor: 'white',
               backgroundColor: "transparent",
-              padding: "18px 36px",
+              padding: "8px 26px",
               fontSize: "14px"
           }}
             variant="outlined" className='btn-signIn'

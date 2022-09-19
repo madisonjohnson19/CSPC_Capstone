@@ -14,8 +14,9 @@ function HeroSection() {
         {/* <div className ='hero-btns'> */}
             <Button 
              style={{
-              top: "30px",
+              top: "-150px",
               color:"#fff",
+              width:"200px",
               borderColor: 'white',
               backgroundColor: "#700f0f",
               padding: "8px 26px",
@@ -26,8 +27,9 @@ function HeroSection() {
             </Button>
             <Button className="call" 
             style={{
-              top: "30px",
+              top: "-130px",
               color:"#fff",
+              width:"200px",
               backgroundColor: "#d1c158",
               padding: "8px 26px",
               fontSize: "18px"
@@ -36,19 +38,25 @@ function HeroSection() {
             </Button>
             <Button
              style={{
-              top: "30px",
+              top: "-110px",
               color:"#fff",
               backgroundColor: "#116319",
+              width:"200px",
               padding: "8px 26px",
               fontSize: "18px"
-          }} >
+          }} href="/more">
                More:
             </Button>
-            <Button
-          className='btns'
-          buttonStyle='btn--outline'
-          buttonSize='btn--large'
-          onClick={console.log('hey')}
+          <Button
+          style={{
+            top: "-50px",
+            color:"#fff",
+            borderColor: "#fff",
+            width:"200px",
+            backgroundColor: "transparent",
+            padding: "8px 26px",
+            fontSize: "18px"}}
+            variant='outlined'
         >
           Tutorial <i className='far fa-play-circle' />
         </Button>
