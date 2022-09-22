@@ -1,12 +1,71 @@
-.options-container{
+/* .options-container{
     background: #0c1c38;
+    max-width: 960px;
+    padding: 20px;
+    margin: 0 auto;
     height: 100vh;
     width: 100%;
-    display: flex;
-    flex-direction: column;
+    /* flex-direction: column;
+    margin-top: 8px;
     justify-content: center;
     align-items: center;
     box-shadow: inset 0 0 0 1000px rgba(0, 0, 0, 0.2);
     object-fit: contain;
+    display: grid;
+    grid-template-columns: repeat(4, 150px);
+    grid-template-rows:50px;
+    grid-auto-rows: 100px; */ 
   
+/* }  */
+body {
+    background: #0c1c38;
+    margin: 0;
+    padding: 0;
+    color:white;
+    /* font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+      "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+      sans-serif; */
+    /* -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale; */
+    box-shadow: inset 0 0 0 1000px rgba(0, 0, 0, 0.2);
+  }
+  
+  /* code {
+    justify-content: center;
+    align-items: center;
+    font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+      monospace;
+  } */
+  
+  .page {
+    color: white;
+    max-width: 960px;
+    padding: 20px;
+    margin: 0 auto;
+    justify-content: center;
+    align-items: center;
+  }
+
+  
+  .buttons-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    width: 100%;
+    margin-bottom: 20px;
+    color: white;
+    grid-template-columns: repeat(4, 150px);
+  }
+
+  
+  .button-wrapper {
+    background-color: grey;
+    margin: 5px;
+  }
+.buttons-fun{
+    color: white;
+    height: 90px;
+    width: 90px;
 }
+  
