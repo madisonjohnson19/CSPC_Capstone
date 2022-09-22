@@ -1,8 +1,9 @@
 import React from 'react'
-import Button from '@mui/material/Button';
+import Button, { ButtonProps }  from '@mui/material/Button';
 import { useNavigate } from "react-router-dom";
 
 import './More.css'
+import { textAlign } from '@mui/system';
 
 function More() {
   let navigate = useNavigate(); 
@@ -10,6 +11,7 @@ function More() {
     let path = `https://cnu.edu/police/`; 
     navigate(path);
   }
+  
 
   return (
    
@@ -19,36 +21,73 @@ function More() {
       maybe instructions?
     </p>
     <section>
-      <div className="buttons-wrapper">
-        <div className="button-wrapper">
-          <Button className='buttons-fun'> Report a Crime</Button>
-        </div>
-        <div className="button-wrapper">
-          <Button className='buttons-fun'>Report a Crime-Anonymous</Button>
-        </div>
-        <div className="button-wrapper">
-          <Button className='buttons-fun'>Contact PD anonymous</Button>
-        </div>
-        <div className="button-wrapper">
-          <Button className='buttons-fun'>Citizen contribution</Button>
-        </div>
-        <div className="button-wrapper">
-          <Button className='buttons-fun'> Request Escort</Button>
-        </div>
-        <div className="button-wrapper">
-          <Button className='buttons-fun'>Campus Map</Button>
-        </div>
-        <div className="button-wrapper">
-          <Button  className='buttons-fun'>View Your Reports</Button>
-        </div>
-        <div className="button-wrapper">
-          <Button  className='btn-securityresource'
-             href="/securityreources">Security Resources</Button>
-        </div>
-        <div className="button-wrapper">
-          <Button className='buttons-fun'>Bordered Button</Button>
-        </div>
-      </div>
+      <Button variant="contained" className='buttons-fun' 
+      style={{
+        background:"grey",
+        padding:"0px 0px",
+        height:"100px",
+        width:"100px",
+        margin:"10px"
+      }}> Report a Crime</Button>
+      <Button variant="contained" className='buttons-fun'
+      style={{
+        background:"grey",
+        padding:"0px 0px",
+        height:"100px",
+        width:"100px",
+        margin:"10px"
+      }}>Report a Crime-Anonymous</Button>
+      <Button  variant="contained"className='buttons-fun'
+      style={{
+        background:"grey",
+        padding:"0px 0px",
+        height:"100px",
+        width:"100px",
+        margin:"10px"
+      }}>Contact PD anonymous</Button>
+      <Button  variant="contained" className='buttons-fun'
+      style={{
+        background:"grey",
+        padding:"0px 0px",
+        height:"100px",
+        width:"100px",
+        margin:"10px"
+      }}>Campus Report</Button>
+      <Button  variant="contained"  className='buttons-fun'
+      style={{
+        background:"grey",
+        padding:"0px 0px",
+        height:"100px",
+        width:"100px",
+        margin:"10px"
+      }}> Request Escort</Button>
+      <Button  variant="contained" className='buttons-fun'
+      style={{
+        background:"grey",
+        padding:"0px 0px",
+        height:"100px",
+        width:"100px",
+        margin:"10px"
+      }}
+      href="/campusmap">Campus Map</Button>
+      <Button variant="contained" className='buttons-fun'
+      style={{
+        background:"grey",
+        padding:"0px 0px",
+        height:"100px",
+        width:"100px",
+        margin:"10px"
+      }}>View Your Reports</Button>
+      <Button  variant="contained" className='buttons-fun'
+        href="/securityreources"
+        style={{
+          background:"grey",
+          padding:"0px 0px",
+          height:"100px",
+          width:"100px",
+          margin:"10px",
+          textAlign:"center"
+        }}>Security Resources</Button>
     </section>
 
  

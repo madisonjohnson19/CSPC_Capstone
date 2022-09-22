@@ -31,9 +31,12 @@ function Navbar() {
         <div className='navbar-container'>
           <Link to='/' className='navbar-logo' onClick={closeMobileMenu}>
             CNU Secure
+            {/* <image src='C:\Users\jmadd\OneDrive\Pictures\Screenshots\CPSC_CAPSTONE\Campus-Security\CSPC_Capstone\cnu-security\src\images\cnu_logo.png'/> */}
+
             <i class='fab fa-typo3' />
           </Link>
           <div className='menu-icon' onClick={handleClick}>
+
             <i className={click ? 'fas fa-times' : 'fas fa-bars'} />
           </div>
           <ul className={click ? 'nav-menu active' : 'nav-menu'}>
@@ -46,7 +49,7 @@ function Navbar() {
             <li>
             <Button 
              style={{
-              top: "-25px",
+              top: "25px",
               color:"#fff",
               outline: "#fff",
               borderColor: 'white',
