@@ -1,16 +1,15 @@
 import React from 'react'
 import Button from '@mui/material/Button';
+import { useNavigate } from "react-router-dom";
+
 import './More.css'
-import GridLayout from "react-grid-layout";
 
 function More() {
-  const layout = [
-    { i: "blue-eyes-dragon", x: 0, y: 0, w: 1, h: 1 },
-    { i: "dark-magician", x: 1, y: 0, w: 1, h: 1 },
-    { i: "kuriboh", x: 2, y: 0, w: 1, h: 1 },
-    { i: "spell-caster", x: 3, y: 0, w: 1, h: 1 },
-    { i: "summoned-skull", x: 4, y: 0, w: 1, h: 1 }
-  ];
+  let navigate = useNavigate(); 
+  const routeChange = () =>{ 
+    let path = `https://cnu.edu/police/`; 
+    navigate(path);
+  }
 
   return (
    
@@ -19,37 +18,40 @@ function More() {
     <p>
       maybe instructions?
     </p>
-    <GridLayout layout={layout} cols={5} rowHeight={300} width={1000}>
+    <section>
       <div className="buttons-wrapper">
         <div className="button-wrapper">
-          <Button className='buttons-fun'>Default Butto1n</Button>
+          <Button className='buttons-fun'> Report a Crime</Button>
         </div>
         <div className="button-wrapper">
-          <Button text className='buttons-fun'>Text Button</Button>
+          <Button className='buttons-fun'>Report a Crime-Anonymous</Button>
         </div>
         <div className="button-wrapper">
-          <Button bordered className='buttons-fun'>Bordered Button</Button>
+          <Button className='buttons-fun'>Contact PD anonymous</Button>
         </div>
         <div className="button-wrapper">
-          <Button className='buttons-fun'>Default Button</Button>
+          <Button className='buttons-fun'>Citizen contribution</Button>
         </div>
         <div className="button-wrapper">
-          <Button text className='buttons-fun'>Text Button</Button>
+          <Button className='buttons-fun'> Request Escort</Button>
         </div>
         <div className="button-wrapper">
-          <Button bordered className='buttons-fun'>Bordered Button</Button>
+          <Button className='buttons-fun'>Campus Map</Button>
         </div>
         <div className="button-wrapper">
-          <Button  className='buttons-fun'>Default Button</Button>
+          <Button  className='buttons-fun'>View Your Reports</Button>
         </div>
         <div className="button-wrapper">
-          <Button text  className='buttons-fun'>Text Button</Button>
+          <Button  className='btn-securityresource'
+             href="/securityreources">Security Resources</Button>
         </div>
         <div className="button-wrapper">
-          <Button bordered className='buttons-fun'>Bordered Button</Button>
+          <Button className='buttons-fun'>Bordered Button</Button>
         </div>
       </div>
-      </GridLayout>
+    </section>
+
+ 
   </div>
   )
 }
