@@ -16,10 +16,8 @@ function More() {
   return (
    
     <div className="page">
-    <h1 className='header'>Could be anything</h1>
-    <p>
-      maybe instructions?
-    </p>
+    <h1 className='header'>Reports and Resources</h1>
+
     <section>
       <Button variant="contained" className='buttons-fun' 
       style={{
@@ -27,16 +25,19 @@ function More() {
         padding:"0px 0px",
         height:"100px",
         width:"100px",
-        margin:"10px"
-      }}> Report a Crime</Button>
+        margin:"10px",
+        textAlign:"center"
+      }}href="/reportCrime"> Report a Crime</Button>
       <Button variant="contained" className='buttons-fun'
       style={{
         background:"grey",
         padding:"0px 0px",
         height:"100px",
         width:"100px",
-        margin:"10px"
-      }}>Report a Crime-Anonymous</Button>
+        margin:"10px",
+        textAlign:"center"
+      }}
+      href="/silentwitness">Silent Witness</Button>
       <Button  variant="contained"className='buttons-fun'
       style={{
         background:"grey",
@@ -51,7 +52,8 @@ function More() {
         padding:"0px 0px",
         height:"100px",
         width:"100px",
-        margin:"10px"
+        margin:"10px",
+        textAlign:"center"
       }}>Campus Report</Button>
       <Button  variant="contained"  className='buttons-fun'
       style={{
@@ -59,8 +61,9 @@ function More() {
         padding:"0px 0px",
         height:"100px",
         width:"100px",
-        margin:"10px"
-      }}> Request Escort</Button>
+        margin:"10px",
+        textAlign:"center"
+      }}href="/requestEscort"> Request Escort</Button>
       <Button  variant="contained" className='buttons-fun'
       style={{
         background:"grey",
@@ -76,8 +79,9 @@ function More() {
         padding:"0px 0px",
         height:"100px",
         width:"100px",
-        margin:"10px"
-      }}>View Your Reports</Button>
+        margin:"10px",
+        textAlign:"center"
+      }}href="/userReports">View Your Reports</Button>
       <Button  variant="contained" className='buttons-fun'
         href="/securityreources"
         style={{
