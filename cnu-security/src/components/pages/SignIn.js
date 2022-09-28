@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import './SignIn.css';
+import Button, { ButtonProps }  from '@mui/material/Button';
+
 
 async function SignIn(credentials) {
  return fetch('http://localhost:3000/signin', {
@@ -30,17 +32,46 @@ export default function Login({ setToken }) {
     <div className="login-wrapper">
       <h1>Please Log In</h1>
       <form onSubmit={handleSubmit}>
-        <label>
-          <p>Username</p>
+        <label >
+          <p className='userName'>Username</p>
           <input type="text" onChange={e => setUserName(e.target.value)} />
         </label>
         <label>
-          <p>Password</p>
+          <p className='userName'>Password</p>
           <input type="password" onChange={e => setPassword(e.target.value)} />
         </label>
-        <div>
-          <button type="submit">Submit</button>
-        </div>
+        <div  >
+        <Button 
+             style={{
+              color:"#fff",
+              width:"250px",
+              borderColor: 'white',
+              backgroundColor: "#3E3E42",
+              padding: "8px 26px",
+              fontSize: "18px",
+              marginTop: "20px"
+            
+          }}
+            >
+                Sign In
+            </Button>
+            </div>
+                  <Button 
+                  style={{
+                    color:"#fff",
+                    width:"250px",
+                    borderColor: 'white',
+                    backgroundColor: "#5286db",
+                    // padding: "8px 26px",
+                    fontSize: "18px",
+                    marginTop: "20px"
+                  
+                }}
+                  href='/signUp'>Create an Account</Button>
+
+          
+        
+
       </form>
     </div>
   )

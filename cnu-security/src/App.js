@@ -10,7 +10,8 @@ import ReportCrime from './components/pages/ReportCrime';
 import RequestEscort from './components/pages/RequestEscort';
 import UserReports from './components/pages/UserReports';
 import SignIn from './components/pages/SignIn';
-import useToken from './components/UserToken';
+import SignUp from './components/pages/SignUp';
+import PdDashboard from './components/pages/pdDashboard';
 
 // function setToken(userToken) {
 //   sessionStorage.setItem('token', JSON.stringify(userToken));
@@ -28,7 +29,8 @@ function App() {
   // if(!token) {
   //   return <SignIn setToken={setToken} />
   // }
-  
+
+ 
   return (
     
     <>
@@ -44,6 +46,8 @@ function App() {
         <Route path="/requestEscort" exact element={<RequestEscort />} />
         <Route path="/userReports" exact element={<UserReports />} />
         <Route path="/signin" exact element={<SignIn />} />
+        <Route path="/signUp" exact element={<SignUp />} />
+        <Route path="/pdDashboard" exact element={<PdDashboard />} />
 
       </Routes>
     </Router>  
