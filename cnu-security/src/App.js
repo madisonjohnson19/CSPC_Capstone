@@ -1,4 +1,6 @@
 import './App.css';
+import React, { useState }  from 'react';
+
 import Navbar from './components/Navbar';
 import {BrowserRouter as Router, Routes, Route} from 'react-router-dom';
 import Home from './components/pages/Home'
@@ -13,24 +15,8 @@ import SignIn from './components/pages/SignIn';
 import SignUp from './components/pages/SignUp';
 import PdDashboard from './components/pages/pdDashboard';
 
-// function setToken(userToken) {
-//   sessionStorage.setItem('token', JSON.stringify(userToken));
-
-// }
-
-// function getToken() {
-//   const tokenString = sessionStorage.getItem('token');
-//   const userToken = JSON.parse(tokenString);
-//   return userToken?.token
-// }
 function App() {
-  // const { token, setToken } = useToken();
 
-  // if(!token) {
-  //   return <SignIn setToken={setToken} />
-  // }
-
- 
   return (
     
     <>

@@ -4,8 +4,20 @@ import './CampusMap.css'
 
 function CampusMap() {
   return (
-    <div className='img'>
-        <img src={logo} alt="Logo" />
+    <div
+   style={{
+    justifyContent:"center"
+
+   }}
+     className='img'>
+        <img 
+        
+         style={{
+          alignContent:"center",
+          width:"60%",
+          height: "60%"
+        }}
+        src={logo} alt="Logo" />
         
     </div>
 
