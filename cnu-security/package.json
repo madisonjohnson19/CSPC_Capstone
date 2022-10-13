@@ -2,7 +2,7 @@
   "name": "cnu-security",
   "version": "0.1.0",
   "private": true,
-  "proxy": "http://localhost:3000",
+  "proxy": "http://localhost:4000",
   "dependencies": {
     "@emotion/react": "^11.10.4",
     "@emotion/styled": "^11.10.4",
@@ -12,7 +12,8 @@
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "cors": "^2.8.5",
-    "express": "^4.18.1",
+    "express": "^4.18.2",
+    "find-package-json": "^1.2.0",
     "mysql": "^2.18.1",
     "nodemon": "^2.0.20",
     "react": "^18.2.0",

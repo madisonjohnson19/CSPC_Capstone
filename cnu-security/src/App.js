@@ -5,9 +5,9 @@ import Navbar from './components/Navbar';
 import {BrowserRouter as Router, Routes, Route} from 'react-router-dom';
 import Home from './components/pages/Home'
 import More from './components/pages/More'
-import SecurityResources from '../src/components/pages/SecurityResourcs';
-import CampusMap from '../src/components/pages/CampusMap';
-import SilentWitness from '../src/components/pages/SilentWitness';
+import SecurityResources from './components/pages/SecurityResourcs';
+import CampusMap from './components/pages/CampusMap';
+import SilentWitness from './components/pages/SilentWitness';
 import ReportCrime from './components/pages/ReportCrime';
 import RequestEscort from './components/pages/RequestEscort';
 import UserReports from './components/pages/UserReports';
