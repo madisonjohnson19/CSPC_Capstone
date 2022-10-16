@@ -1,3 +1,67 @@
+// import React, { useEffect } from "react";
+// import './App.css';
+// import { useState }  from 'react';
+// import Axios from 'axios';
+
+
+// function App(){
+// const [usernameReg, setUsernameReg]=useState("");
+// const [passwordReg, setPasswordReg]=useState("");
+// const [printAll , setprintAll]=useState([]);
+
+// useEffect(()=>{
+//   Axios.get('http://localhost:3001/api/get').then((response)=>{
+//     setprintAll(response.data)
+//   })
+// },[])
+
+// const register =()=>{
+//   console.log("REGISTER WAS CALLED");
+//   Axios.post('http://localhost:3001/api/insert',{
+//     username:usernameReg,
+//     password:passwordReg,
+// }).then((response)=>{
+//   alert("SUCCESSFUL INSERT SO SMART")
+// });
+  
+// };
+
+//   return(
+//     <div className="App">
+//       <div className="registration">
+//         <h1>registration</h1>
+//         <label>Username</label>
+//         <input type="text"
+//         onChange={(e) =>{
+//           setUsernameReg(e.target.value);
+//         }}/>
+
+//         <label>password</label>
+//         <input type="text" onChange={(e)=>{
+          
+//           setPasswordReg(e.target.value);
+//         }}/>
+//         <button
+//         onClick={register }>Register</button>
+//       </div>
+//       <div className="login">
+//         <h1>Log In</h1>
+//         <input type="text" placeholder="Username...."/>
+//         <input type="password" placeholder="Password...."/>
+//         <button>Register</button>
+
+//         {printAll.map((val)=>{
+//           return <h1>PEEPS: {val.name} | {val.designation}</h1>
+//         })}
+
+//       </div>
+
+
+//     </div>
+//   );
+// }
+// export default App;
+
 import './App.css';
 import React, { useState }  from 'react';
 
