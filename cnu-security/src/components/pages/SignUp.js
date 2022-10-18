@@ -123,11 +123,12 @@ const SignUp = () =>{
                     marginTop: "20px"
                   
                 }}
-                onClick={handleClick}>Create an Account</Button>
-                  {printAll.map((val)=>{
+                // onClick={handleClick}
+                >Create an Account</Button>
+                  {/* {printAll.map((val)=>{
           return <h1>PEEPS: {val.firstName} </h1>
         })}
-// 
+//  */}
           
         
 

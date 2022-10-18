@@ -1,3 +1,45 @@
+# CNU Secure
+
+## Start the website
+### Enter the program through the cnu-secure folder.
+### From there you can `npm start` to begin the react webiste.
+
+## Start the database
+## Navigate to the cnu-secure folder and go into the Server folder.
+## command enter `node index.js` to start the database conenction.
+
+## File Organization - Front End
+## cnu-secure > src here is were all of the routing and front end components are located. 
+## Inside of the components folder is the pages folder and the cpmponents used globally
+## In the pages folder is all of the individual pages
+
+
+## File Organization - Back End
+## cnu-secure > Server here is were all of the routing and back end components are located. 
+## Index.js is the main file in here which established the database connection/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
