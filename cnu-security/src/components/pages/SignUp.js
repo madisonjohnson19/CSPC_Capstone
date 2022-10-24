@@ -33,7 +33,8 @@ const SignUp = () =>{
   const [password, setPassword] = useState('');
 
   useEffect(()=>{
-  Axios.get('http://localhost:3001/api/get/test').then((response)=>{
+
+  Axios.get('http://localhost:3001/api/get').then((response)=>{
     setprintAll(response.data)
   })
 },[])
@@ -45,15 +46,17 @@ const SignUp = () =>{
   
   
     const handleClick = async (e) => {
-      console.log("pOSTED BITCH: "+ firstName)
+      const instance = Axios.create();
+      
+      // await Axios.post("http://localhost:3001/api/insert/test", "firstName");
       e.preventDefault();
       try {
         e.preventDefault();
-        await Axios.post("http://localhost:3001/api/insertt", firstName);
-        
-        navigate("/");
+        await instance.post("http://localhost:3001/api/insert/test", {firstName:firstName,lastName:lastName});
+        console.log("pOSTED BITCH: "+ firstName)
+        // navigate("/");
       } catch (err) {
-        console.log(err);
+        console.log("ERRO: " +err);
         setError(true)
       }
     };
@@ -123,7 +126,7 @@ const SignUp = () =>{
                     marginTop: "20px"
                   
                 }}
-                // onClick={handleClick}
+                onClick={handleClick}
                 >Create an Account</Button>
                   {/* {printAll.map((val)=>{
           return <h1>PEEPS: {val.firstName} </h1>

@@ -3,20 +3,26 @@ const app = express();
 const mysql=require('mysql');
 const bodyParser =require('body-parser')
 const cors = require('cors');
-const { urlencoded } = require("express");
+// const db = mysql.createPool({
+//     host: 'localhost',
+//     user:'root',
+//     password:'',
+//     database: 'nodem',
+//     port: '4306'
 
+// })
 const db = mysql.createPool({
     host: 'localhost',
     user:'root',
-    password:'',
-    database: 'nodem',
-    port: '4306'
+    password:'root',
+    database: 'cnu_secure',
+    port: '3306'
 
 })
 app.use(cors());
 app.use(express.json());
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended: true}))
+app.use(bodyParser.urlencoded({extended: true}));
 
 app.get('/api/get',(req,res)=>{
     const sqlSelect= "SELECT * FROM student;";
@@ -24,11 +30,19 @@ app.get('/api/get',(req,res)=>{
         res.send(result);
     });
 })
-app.get('/api/get/test',(req,res)=>{
-    const sqlSelect= "SELECT * FROM simpletester;";
-    db.query(sqlSelect,(err,result)=>{
-        res.send(result);
-    });
+app.post('/api/insert/test', (req, res)=>{
+
+
+    console.log('employee added: '+req.body.firstName)
+    let post = {firstname:req.body.firstName,lastName:req.body.lastName, cnuID:975119}
+    let sql = 'INSERT INTO student SET ?'
+    let query = db.query(sql, post, err =>{
+        if (err){
+            throw err
+        }
+        res.send('Student added!')
+        console.log(' added: '+req.body.firstName+ " , "+req.body.lastName)
+    })
 })
 // //register
 // app.post('/register',(req,res)=> {
@@ -82,14 +96,14 @@ app.post('/api/insert',(req,res)=>{
 // //insert employee
 app.get('/api/insertt', (req, res)=>{
     console.log('employee added: '+req.body.firstName)
-    let post = {firstname:req.body.firstName}
-    let sql = 'INSERT INTO simpletester SET ?'
+    let post = {firstname:"Scot",lastName:"McElfresh", cnuID:1235689}
+    let sql = 'INSERT INTO student SET ?'
     let query = db.query(sql, post, err =>{
         if (err){
             throw err
         }
-        res.send('employee added')
-        console.log('employee added: '+req.body.firstName)
+        res.send('Student added!')
+        console.log(' added: '+req.body.firstName)
     })
 })
 
