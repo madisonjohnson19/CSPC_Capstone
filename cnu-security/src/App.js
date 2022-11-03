@@ -78,10 +78,28 @@ import UserReports from './components/pages/UserReports';
 import SignIn from './components/pages/SignIn';
 import SignUp from './components/pages/SignUp';
 import PdDashboard from './components/pages/pdDashboard';
+import AssistanceReq from './components/pages/AssistanceReq';
+import useToken from './components/useToken';
 
+
+function setToken(userToken) {
+  sessionStorage.setItem('token', JSON.stringify(userToken));
+}
+
+function getToken() {
+  const tokenString = sessionStorage.getItem('token');
+  const userToken = JSON.parse(tokenString);
+  return userToken?.token
+}
 function App() {
-
+  const { token, setToken } = useToken();
+  const { e, d } = useToken();
+  if(!token) {
+    return <SignIn setToken={setToken} />
+  }
+ 
   return (
+
     
     <>
     <Router>
@@ -98,6 +116,7 @@ function App() {
         <Route path="/signin" exact element={<SignIn />} />
         <Route path="/signUp" exact element={<SignUp />} />
         <Route path="/pdDashboard" exact element={<PdDashboard />} />
+        <Route path="/viewAssistance" exact element={<AssistanceReq />} />
 
       </Routes>
     </Router>  

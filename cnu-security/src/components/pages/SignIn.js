@@ -4,16 +4,16 @@ import './SignIn.css';
 import Button, { ButtonProps }  from '@mui/material/Button';
 
 
-async function SignIn(credentials) {
- return fetch('http://localhost:3000/signin', {
-   method: 'POST',
-   headers: {
-     'Content-Type': 'application/json'
-   },
-   body: JSON.stringify(credentials)
- })
-   .then(data => data.json())
-}
+async function loginUser(credentials) {
+  return fetch('http://localhost:3001/login', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(credentials)
+  })
+    .then(data => data.json())
+ }
 
 export default function Login({ setToken }) {
   const [username, setUserName] = useState();
@@ -21,7 +21,7 @@ export default function Login({ setToken }) {
 
   const handleSubmit = async e => {
     e.preventDefault();
-    const token = await SignIn({
+    const token = await loginUser({
       username,
       password
     });
@@ -42,6 +42,7 @@ export default function Login({ setToken }) {
         </label>
         <div  >
         <Button 
+        type="submit"
              style={{
               color:"#fff",
               width:"250px",
@@ -77,6 +78,6 @@ export default function Login({ setToken }) {
   )
 }
 
-SignIn.propTypes = {
+Login.propTypes = {
   setToken: PropTypes.func.isRequired
 };

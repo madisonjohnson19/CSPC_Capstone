@@ -4,9 +4,8 @@ import Button, { ButtonProps }  from '@mui/material/Button';
 
 function pdDashboard() {
   return (
-    
     <div className="page">
-    <h1 className='header'>Reports and Resources</h1>
+    <h1 className='header'>View Reports</h1>
 
     <section>
       <Button variant="contained" className='buttons-fun' 
@@ -17,7 +16,7 @@ function pdDashboard() {
         width:"100px",
         margin:"10px",
         textAlign:"center"
-      }}href="/reportCrime"> Report a Crime</Button>
+      }}href="/viewAssistance"> Assistance Requested </Button>
       <Button variant="contained" className='buttons-fun'
       style={{
         background:"grey",

@@ -1,31 +1,27 @@
 import React from 'react'
 import { useState } from 'react';
 import './ReportCrime.css'
+import Axios from 'axios';
+
 
 function ReportCrime() {
   const [inputs, setInputs] = useState({});
   const [MyCar, setMyCar] = useState("Volvo");
-  const handleChange = (event) => {
-    
-    setMyCar(event.target.value)
-    const name = event.target.name;
-    const value = event.target.value;
-    setInputs(values => ({...values, [name]: value}))
-  }
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    console.log(inputs);
-  }
+ 
   
 
   return (
 
     <div className='form-box'>
-    <form onSubmit={handleSubmit} className="form">
+    <form 
+    // onSubmit={handleSubmit} 
+    className="form">
     <div className = "field1">
       <label>Type of Crime
-      <select className="item" value={MyCar} onChange={handleChange}>
+      <select className="item" value={MyCar} 
+      // onChange={handleChange}
+      >
         <option value="Ford">Rape / Sexual Assault</option>
         <option value="Volvo">Assault</option>
         <option value="Fiat">Weapons</option>
@@ -45,7 +41,7 @@ function ReportCrime() {
       type="text" 
       name="username" 
       value={inputs.username || ""} 
-      onChange={handleChange}
+      // onChange={handleChange}
       
     />
     </label>
@@ -54,7 +50,7 @@ function ReportCrime() {
         type="number" 
         name="age" 
         value={inputs.age || ""} 
-        onChange={handleChange}
+        // onChange={handleChange}
       />
       </label>
       <label>Description of Incident:
@@ -62,7 +58,7 @@ function ReportCrime() {
         type="number" 
         name="age" 
         value={inputs.age || ""} 
-        onChange={handleChange}
+        // onChange={handleChange}
       />
       </label>
       <label>Suspect's Name and Description:
@@ -70,7 +66,7 @@ function ReportCrime() {
         type="number" 
         name="age" 
         value={inputs.age || ""} 
-        onChange={handleChange}
+        // onChange={handleChange}
       />
       </label>
       <label>Vehicle Description (if applicable):
@@ -78,7 +74,7 @@ function ReportCrime() {
         type="number" 
         name="age" 
         value={inputs.age || ""} 
-        onChange={handleChange}
+        // onChange={handleChange}
       />
       </label>
       <input type="submit" />

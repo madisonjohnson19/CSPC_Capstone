@@ -1,14 +1,49 @@
 import '../App.css'
 import Button from '@mui/material/Button';
 import './HeroSection.css'
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import useGeolocation from '../hooks/useGeolocation';
+import Axios from 'axios';
 // import { getCardHeaderUtilityClass } from '@mui/material';
 
 
 
 
-
 function HeroSection() {
+  const [time, setTime] = useState('');
+  const [reportID, setReportId] = useState('');
+  const location =useGeolocation();
+  const current = new Date();
+  const [currentDate, setCurrentDate] = useState('');
+  // const date = `${current.getDate()}/${current.getMonth()+1}/${current.getFullYear()}`;
+  useEffect(() => {
+    var date = new Date().getDate(); //Current Date
+    var month = new Date().getMonth() + 1; //Current Month
+    var year = new Date().getFullYear(); //Current Year
+    var hours = new Date().getHours(); //Current Hours
+    var min = new Date().getMinutes(); //Current Minutes
+    var sec = new Date().getSeconds(); //Current Seconds
+    setCurrentDate(
+      month + '/' + date + '/' + year 
+      + ' ' + hours + ':' + min + ':' + sec
+    );
+  }, []);
+
+  const handleClick = async (e) => {
+    const instance = Axios.create();
+    
+    e.preventDefault();
+    try {
+      e.preventDefault();
+      await instance.post("http://localhost:3001/api/insert/reportCrime", {dateTime:currentDate,location:JSON.stringify(location)});
+
+      // console.log("pOSTED BITCH: "+ firstName)
+      // navigate("/");
+    } catch (err) {
+      console.log("ERRO: " +err);
+      // setError(true)
+    }
+  };
  
 
 
@@ -20,7 +55,8 @@ function HeroSection() {
       
         {/* <div className ='hero-btns'> */}
             <Button 
-            href="/pdHome"
+            onClick={handleClick}
+     
              style={{
               top: "-150px",
               color:"#fff",
@@ -33,6 +69,11 @@ function HeroSection() {
             >
                 Notify Now
             </Button>
+            <div className="inline-block mr-auto pt-1">
+                                {location.loaded
+                                    ? JSON.stringify(location)
+                                    : "Location data not available yet."}
+                            </div>
             
             <Button className="call" 
             style={{
