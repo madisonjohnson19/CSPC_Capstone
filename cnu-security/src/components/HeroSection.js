@@ -4,18 +4,30 @@ import './HeroSection.css'
 import React, { useState, useEffect } from 'react';
 import useGeolocation from '../hooks/useGeolocation';
 import Axios from 'axios';
-// import { getCardHeaderUtilityClass } from '@mui/material';
+import Dialog from "@material-ui/core/Dialog";
+import DialogContentText from "@material-ui/core/DialogContentText";
+import DialogTitle from "@material-ui/core/DialogTitle";
+import DialogActions from "@material-ui/core/DialogActions";
+import DialogContent from "@material-ui/core/DialogContent";
+// import call from 'react-native-phone-call';
+
 
 
 
 
 function HeroSection() {
+  const [phone, setPhone] = useState('7575947777');
+  const [open, setOpen] = React.useState(false);
   const [time, setTime] = useState('');
+  const [lastID, setLastID] = useState('');
   const [reportID, setReportId] = useState('');
   const location =useGeolocation();
   const current = new Date();
   const [currentDate, setCurrentDate] = useState('');
-  // const date = `${current.getDate()}/${current.getMonth()+1}/${current.getFullYear()}`;
+  const [cnuID, setcnuID] = useState('');
+ 
+
+
   useEffect(() => {
     var date = new Date().getDate(); //Current Date
     var month = new Date().getMonth() + 1; //Current Month
@@ -28,9 +40,20 @@ function HeroSection() {
       + ' ' + hours + ':' + min + ':' + sec
     );
   }, []);
+  const handleClickToOpen = () => {
+    setOpen(true);
+  };
+  
+  const handleToClose = () => {
+    setOpen(false);
+  };
 
   const handleClick = async (e) => {
+   
+    {handleClickToOpen()}
     const instance = Axios.create();
+    
+
     
     e.preventDefault();
     try {
@@ -43,8 +66,69 @@ function HeroSection() {
       console.log("ERRO: " +err);
       // setError(true)
     }
+    
+  };
+  const handleUpdate = async (e) => {
+   
+   
+    const instance = Axios.create();
+    
+    e.preventDefault();
+    try {
+      e.preventDefault();
+      await instance.post("http://localhost:3001/api/update/addCNUID/maxID", {CNUID: cnuID,aRID:lastID});
+
+      console.log("CNU ID: "+cnuID)
+      // navigate("/");
+    } catch (err) {
+      console.log("ERRO: " +err);
+      // setError(true)
+    }
+    
+  };
+  const getMaxID =async (e) =>{
+    const instance = Axios.create();
+    
+    try{
+      e.preventDefault();
+      await instance.get('http://localhost:3001/api/delete/cancelRequest/maxID').then(res => setLastID(res.data))
+      .catch(err => console.log(err))
+      // results=JSON.parse(JSON.stringify(results))
+ 
+      console.log("GET LAST ID: ",lastID)
+     
+    }catch (err) {
+        console.log("ERRO: " +err);
+        // setError(true)
+      }
+      {deleteRequest()}
+      
+
+  };
+  const deleteRequest = async (e) => {
+    
+    const instance = Axios.create();
+
+    try {
+     
+      console.log("LAST ID: ",lastID)
+      await instance.post("http://localhost:3001/api/delete/moveOpenToResolve", {aRID: lastID});
+
+      console.log("DELETE BITCH: "+ lastID+1)
+      // navigate("/");
+    } catch (err) {
+      console.log("ERRO: " +err);
+      // setError(true)
+    }
   };
  
+  // const onCall=()=>{
+  //   const args ={
+  //     number: phone,
+  //     prompt: true,
+  //   };
+  //   call(args).catch(console.error)
+  // }
 
 
 
@@ -52,6 +136,27 @@ function HeroSection() {
     
           
     <div className='hero-container'>
+
+      <Dialog open={open} onClose={handleToClose}>
+        <DialogTitle>{"Your Request Has Been Sent!"}</DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            Please enter your CNU ID so PD can better assist you.
+          </DialogContentText>
+          <input placeholder="    CNU ID" onChange={e => setcnuID(e.target.value)}></input>
+          <Button onClick={handleUpdate}>Update</Button>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleToClose} 
+                  color="primary" autoFocus>
+            Close
+          </Button>
+          <Button onClick={getMaxID}
+                  color="primary" autoFocus>
+            Cancel Request
+          </Button>
+        </DialogActions>
+      </Dialog>
       
         {/* <div className ='hero-btns'> */}
             <Button 
@@ -69,11 +174,13 @@ function HeroSection() {
             >
                 Notify Now
             </Button>
-            <div className="inline-block mr-auto pt-1">
+
+
+            {/* <div className="inline-block mr-auto pt-1">
                                 {location.loaded
                                     ? JSON.stringify(location)
                                     : "Location data not available yet."}
-                            </div>
+                            </div> */}
             
             <Button className="call" 
             style={{
@@ -87,6 +194,7 @@ function HeroSection() {
                Call CNU PD 
             </Button>
             <Button
+            // onClick={onCall}
              style={{
               top: "-110px",
               color:"#fff",
@@ -96,6 +204,7 @@ function HeroSection() {
               fontSize: "18px"
           }} href="/more">
                More:
+
             </Button>
           <Button
           style={{
