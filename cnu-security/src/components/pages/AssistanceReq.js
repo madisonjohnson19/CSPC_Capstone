@@ -6,11 +6,21 @@ import "../pages/AssistanceReq.css";
 import { DataGrid, GridColDef, GridValueGetterParams } from '@mui/x-data-grid';
 import Table from "../Table";
 import { Button } from "@mui/material";
+import Dialog from "@material-ui/core/Dialog";
+import DialogContentText from "@material-ui/core/DialogContentText";
+import DialogTitle from "@material-ui/core/DialogTitle";
+import DialogActions from "@material-ui/core/DialogActions";
+import DialogContent from "@material-ui/core/DialogContent";
 
 
 function AssistanceReq() {
   const [showOpen, setShowOpen] = useState(true)
   const [showResolve, setShowResolve] = useState(false)
+  const [showStudent, setShowStudent] = useState(false)
+  const [showStudentInfo, setShowStudentInfo] = useState(false)
+  const [studentInfo, setStudentInfo] = React.useState([]);
+  const [open, setOpen] = React.useState(false);
+  let cnuID="";
   let time ="";
   let reportId="";
   let location ="";
@@ -24,22 +34,43 @@ function AssistanceReq() {
     Axios('http://localhost:3001/api/get/report')
       .then(res => setCategory(res.data))
       .catch(err => console.log(err))
-      console.log("C: ",category)
+      // console.log("C: ",category)
     };
   
     
     getcategory();
 
   }, []);
+  // useEffect(() => {
+  //   const getcategory1 = async () => {
+  //   Axios(`http://localhost:3001/api/get/users/${cnuID}`)
+  //     .then(res => setStudentInfo(res.data))
+  //     .catch(err => console.log(err))
+  //     console.log("C: ",studentInfo)
+  //   };
+  
+    
+  //   getcategory1();
 
-    useEffect(() => {
-      const getcategory1 = async () => {
-    Axios('http://localhost:3001/api/get/report/resolve')
-      .then(res => setResolve(res.data))
-      .catch(err => console.log(err))
-      };
-      getcategory1();
-  }, []);
+  // }, []);
+  // useEffect(()=>{
+  //   HandleOpen("12345");
+  // })
+
+  const HandleOpen = (c) => {
+    console.log("HandleOpen ID: "+c)
+    {setSetStudentInfo()}
+    Axios.get(`http://localhost:3001/api/get/users/${c}`)
+    .then(res => setStudentInfo(res.data))
+      .catch(err => console.log("FDS " +err))
+      
+    // setStudentInfo(response.data);
+    console.log("SI "+studentInfo[0].lastName)
+    
+  };
+  
+ 
+
   
   const handleClick = async (e) => {
     const instance = Axios.create();
@@ -71,14 +102,73 @@ function AssistanceReq() {
     
     handleClick();
   };
- 
+  const setSetCNUID=(cnuID)=>{
+    
+    cnuID =(cnuID.CNUID)
+    console.log("CNUID IN AR:"+cnuID)
+    HandleOpen(cnuID);
+  }
+  const setSetStudentInfo =()=>{
+    setShowStudentInfo(true)
+  }
 
+  const handleClickToOpen = (d) => {
+    console.log("handleClickToOpen")
+    setSetCNUID(d);
+    
+    // handleToOpenStudent();
+    setOpen(true);
+    setShowStudent(true);
+    
+    
+  };
+  
+  const handleToClose = () => {
+    // window.location.reload();
+    setOpen(false);
+  };
+  const handleToCloseStudent = () => {
+    // window.location.reload();
+    setShowStudent(false);
+  };
+  
 
 
 
   return (
     <React.Fragment>
       <Container>
+        {showStudent && 
+      <Dialog open={open} onClose={handleToClose}>
+        <DialogTitle>{"Student Info"}</DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            
+            {showStudentInfo}
+            {showStudentInfo &&
+            <div>
+            Student First Name: {studentInfo[0].firstName} <br/>
+            Student Last Name: {studentInfo[0].lastName}
+        </div>
+            }
+      
+            
+            {/* {studentInfoLoader()} */}
+          </DialogContentText>
+          
+          {/* <Button onClick={handleUpdate}>Update</Button> */}
+        </DialogContent>
+        <DialogActions>
+          <Button 
+          onClick={handleToCloseStudent} 
+                  color="primary" autoFocus>
+            Close
+          </Button>
+          
+        </DialogActions>
+      </Dialog>
+      }
+
       <div className="container">
             <div className="buttons">  
               <Button  className="b" onClick={onClick}
@@ -118,7 +208,8 @@ function AssistanceReq() {
                 <tr key={getcate}>
                   <td>{getcate.aRID}</td>
                   <td> {getcate.location}</td>
-                  <td> {getcate.CNUID}</td>
+                  {/* onClick={handleClickToOpen()} */}
+                  <td> <button onClick={() => handleClickToOpen(getcate)}  className="btn btn-success"> {getcate.CNUID}</button></td>
                   <td> {getcate.dateTime}</td>
                   <td><button onClick={() => deleteData(getcate)} className="btn btn-success"> Resolve </button> </td>
                 </tr>
@@ -141,13 +232,13 @@ function AssistanceReq() {
               </tr>
             </thead>
             <tbody>
-              {resolve.map((getcate) => (
+              {resolve.map((getcate1) => (
                   
-                <tr key={getcate}>
-                  <td>{getcate.aRID}</td>
-                  <td> {getcate.location}</td>
-                  <td> {getcate.dateTime}</td>
-                  <td><button onClick={() => deleteData(getcate)} className="btn btn-success"> View </button> </td>
+                <tr key={getcate1}>
+                  <td>{getcate1.aRID}</td>
+                  <td> {getcate1.location}</td>
+                  <td> {getcate1.dateTime}</td>
+                  <td><button onClick={() => deleteData(getcate1)} className="btn btn-success"> View </button> </td>
                 </tr>
               ))}
             </tbody>

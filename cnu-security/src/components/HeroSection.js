@@ -45,6 +45,7 @@ function HeroSection() {
   };
   
   const handleToClose = () => {
+    window.location.reload();
     setOpen(false);
   };
 
@@ -52,20 +53,37 @@ function HeroSection() {
    
     {handleClickToOpen()}
     const instance = Axios.create();
-    
-
-    
     e.preventDefault();
     try {
       e.preventDefault();
       await instance.post("http://localhost:3001/api/insert/reportCrime", {dateTime:currentDate,location:JSON.stringify(location)});
-
+      
       // console.log("pOSTED BITCH: "+ firstName)
       // navigate("/");
     } catch (err) {
       console.log("ERRO: " +err);
       // setError(true)
     }
+    {GetMaxID()}
+    
+  };
+  useEffect(() => {
+    const Getcategory1 = async () => {
+  Axios('http://localhost:3001/api/delete/cancelRequest/maxID')
+    .then(res => setLastID(1+res.data))
+    .catch(err => console.log(err))
+    };
+    Getcategory1();
+}, []);
+  const GetMaxID = () => {
+    console.log("GETMAXID CALLED")
+    // Axios('http://localhost:3001/api/delete/cancelRequest/maxID').then(res => setLastID(res.data))
+    // .catch(err => console.log(err))
+    //   console.log("MAXID: "+lastID);
+    
+      
+      console.log("MAXID: "+lastID);
+    console.log("GETMAXID ENDED")
     
   };
   const handleUpdate = async (e) => {
@@ -76,9 +94,11 @@ function HeroSection() {
     e.preventDefault();
     try {
       e.preventDefault();
-      await instance.post("http://localhost:3001/api/update/addCNUID/maxID", {CNUID: cnuID,aRID:lastID});
+      console.log("CNU ID: "+cnuID+ " LAST ID: "+ lastID)
+      await instance.put("http://localhost:3001/api/update/addCNUID/maxID", {cnuID: cnuID,lastID:lastID});
+      
 
-      console.log("CNU ID: "+cnuID)
+      
       // navigate("/");
     } catch (err) {
       console.log("ERRO: " +err);
@@ -86,7 +106,7 @@ function HeroSection() {
     }
     
   };
-  const getMaxID =async (e) =>{
+  const deleteLast =async (e) =>{
     const instance = Axios.create();
     
     try{
@@ -151,7 +171,7 @@ function HeroSection() {
                   color="primary" autoFocus>
             Close
           </Button>
-          <Button onClick={getMaxID}
+          <Button onClick={deleteLast}
                   color="primary" autoFocus>
             Cancel Request
           </Button>
