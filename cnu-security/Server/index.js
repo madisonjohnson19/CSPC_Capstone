@@ -3,6 +3,7 @@ const app = express();
 const mysql=require('mysql');
 const bodyParser =require('body-parser')
 const cors = require('cors');
+const { renderEditSingleSelectCell } = require("@mui/x-data-grid");
 // const db = mysql.createPool({
 //     host: 'localhost',
 //     user:'root',
@@ -42,8 +43,44 @@ app.get('/api/get/report/resolve',(req,res)=>{
         res.send(result);
     });
 })
+app.get('/api/get/users/:cnuID',(req,res)=>{
+    let cnuID = req.params.cnuID;
+    // let cnuID = "12345";
+    let sql = `SELECT * FROM student WHERE CNUID= "${cnuID}";`
+    db.query(sql,(err,result)=>{
+        res.send(result);
+        console.log("GET STUDENT: ",result+ " CNUID: "+sql)
+    });
+})
+
+app.get('/api/delete/cancelRequest/maxID',(req,res)=>{
+    const sqlSelect= "SELECT max(aRID) FROM assistancerequest;";
+    db.query(sqlSelect,(err,result)=>{
+        let hold =result[0]["max(aRID)"]+""
+        res.send(hold);
+
+        console.log("GET LAST REQUEST ID : "+hold)
+        
+        // console.log("DELETE: "+(result[0]["max(aRID)"]))
+        // console.log('LAST ID: '+result[result.length-1].aRID)
+    });
+})
+app.put('/api/update/addCNUID/maxID',(req,res)=>{
+    let cnuID = req.body.cnuID;
+    let lastID = req.body.lastID;
+    console.log("Update to send cnuID: "+cnuID+ "  maxID: "+lastID)
+    const sqlSelect= `UPDATE assistancerequest SET CNUID = ${cnuID} WHERE aRID =${lastID};`;
+    db.query(sqlSelect,(err,result)=>{
+        // let hold =result[0]["max(aRID)"]+""
+        res.send(result);
+
+        console.log("Update : "+result)
+        
+        // console.log("DELETE: "+(result[0]["max(aRID)"]))
+        // console.log('LAST ID: '+result[result.length-1].aRID)
+    });
+})
 app.post('/api/delete/moveOpenToResolve',(req,res)=>{
-    console.log(' DELETED: '+req.body.aRID)
     let post_delete = req.body.aRID
     let sql_delete =`DELETE FROM assistancerequest WHERE aRID = ${post_delete};`
     db.query(sql_delete, post_delete, (err, rows) => {
@@ -83,7 +120,7 @@ app.post('/api/insert/test', (req, res)=>{
     })
 })
 app.post('/api/insert/reportCrime', (req, res)=>{
-    console.log('report added: '+req.body.reportID)
+    console.log('report added: '+req.body.aRID)
     let post = {dateTime:req.body.dateTime ,location: req.body.location}
     let sql = 'INSERT INTO assistancerequest SET ?'
     let query = db.query(sql, post, err =>{
