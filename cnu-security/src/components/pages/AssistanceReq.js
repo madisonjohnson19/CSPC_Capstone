@@ -11,6 +11,7 @@ import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
+import { Outlet, Link } from "react-router-dom";
 
 
 function AssistanceReq() {
@@ -41,31 +42,19 @@ function AssistanceReq() {
     getcategory();
 
   }, []);
-  // useEffect(() => {
-  //   const getcategory1 = async () => {
-  //   Axios(`http://localhost:3001/api/get/users/${cnuID}`)
-  //     .then(res => setStudentInfo(res.data))
-  //     .catch(err => console.log(err))
-  //     console.log("C: ",studentInfo)
-  //   };
   
-    
-  //   getcategory1();
 
-  // }, []);
-  // useEffect(()=>{
-  //   HandleOpen("12345");
-  // })
-
-  const HandleOpen = (c) => {
+  const HandleOpen = async(c) => {
     console.log("HandleOpen ID: "+c)
-    {setSetStudentInfo()}
-    Axios.get(`http://localhost:3001/api/get/users/${c}`)
+    
+    await Axios.get(`http://localhost:3001/api/get/users/${c}`)
     .then(res => setStudentInfo(res.data))
       .catch(err => console.log("FDS " +err))
+      // console.log("HandleOpen fName: "+studentInfo[0].firstName)
+      {setSetStudentInfo()}
       
     // setStudentInfo(response.data);
-    console.log("SI "+studentInfo[0].lastName)
+    // console.log("SI "+studentInfo[0].lastName)
     
   };
   
@@ -95,6 +84,11 @@ function AssistanceReq() {
   const onClickResolve = () => {setShowResolve(true);setShowOpen(false);
     // window.location.reload();
   }
+  const openInNewTab = url => {
+
+    const newWindow = window.open(url, '_blank', 'noopener,noreferrer')
+    if (newWindow) newWindow.opener = null 
+};
   const deleteData = (dataId) => {
     reportId=(dataId.aRID)
     time=(dataId.dateTime)
@@ -109,6 +103,7 @@ function AssistanceReq() {
     HandleOpen(cnuID);
   }
   const setSetStudentInfo =()=>{
+    // if (studentInfo[.])
     setShowStudentInfo(true)
   }
 
@@ -148,7 +143,16 @@ function AssistanceReq() {
             {showStudentInfo &&
             <div>
             Student First Name: {studentInfo[0].firstName} <br/>
-            Student Last Name: {studentInfo[0].lastName}
+            Student Last Name: {studentInfo[0].lastName} <br/>
+            CNU ID: {studentInfo[0].cnuID} <br/>
+            Phone:{studentInfo[0].phone} <br/>
+            CNU Email:{studentInfo[0].email} <br/>
+            {/* Address:{studentInfo[0].firstName} <br/> */}
+            Emergency Contact Phone: {studentInfo[0].EmConPhone} <br/>
+            Emergency Contact Name: {studentInfo[0].EmConName} <br/>
+            Emergency Contact Relationship: {studentInfo[0].EmConRelation} 
+
+        
         </div>
             }
       
@@ -207,7 +211,8 @@ function AssistanceReq() {
                   
                 <tr key={getcate}>
                   <td>{getcate.aRID}</td>
-                  <td> {getcate.location}</td>
+                  <td> <Link 
+                  onClick={()=>openInNewTab(getcate.location)}>Google Map Location</Link></td>
                   {/* onClick={handleClickToOpen()} */}
                   <td> <button onClick={() => handleClickToOpen(getcate)}  className="btn btn-success"> {getcate.CNUID}</button></td>
                   <td> {getcate.dateTime}</td>

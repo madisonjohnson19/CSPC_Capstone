@@ -79,24 +79,26 @@ import SignIn from './components/pages/SignIn';
 import SignUp from './components/pages/SignUp';
 import PdDashboard from './components/pages/pdDashboard';
 import AssistanceReq from './components/pages/AssistanceReq';
-import useToken from './components/useToken';
+// import useToken from './components/useToken';
+import gMaps from './components/pages/gMaps';
 
 
-function setToken(userToken) {
-  sessionStorage.setItem('token', JSON.stringify(userToken));
-}
 
-function getToken() {
-  const tokenString = sessionStorage.getItem('token');
-  const userToken = JSON.parse(tokenString);
-  return userToken?.token
-}
+// function setToken(userToken) {
+//   sessionStorage.setItem('token', JSON.stringify(userToken));
+// }
+
+// function getToken() {
+//   const tokenString = sessionStorage.getItem('token');
+//   const userToken = JSON.parse(tokenString);
+//   return userToken?.token
+// }
 function App() {
-  const { token, setToken } = useToken();
-  const { e, d } = useToken();
-  if(!token) {
-    return <SignIn setToken={setToken} />
-  }
+  // const { token, setToken } = useToken();
+  // const { e, d } = useToken();
+  // if(!token) {
+  //   return <SignIn setToken={setToken} />
+  // }
  
   return (
 
@@ -108,6 +110,7 @@ function App() {
         <Route path='/' exact element={<Home/>}/>
         <Route path='/more' exact element={<More/>}/>
         <Route path="/securityreources" exact element={<SecurityResources />} />
+        <Route path="/gMaps" exact element={<gMaps />} />
         <Route path="/campusmap" exact element={<CampusMap />} />
         <Route path="/silentwitness" exact element={<SilentWitness />} />
         <Route path="/reportCrime" exact element={<ReportCrime />} />

@@ -8,7 +8,7 @@ import { textAlign } from '@mui/system';
 function More() {
   let navigate = useNavigate(); 
   const routeChange = () =>{ 
-    let path = `https://cnu.edu/police/`; 
+    let path = `https://cnu.edu/polic/`; 
     navigate(path);
   }
   
