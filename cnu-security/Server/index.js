@@ -49,7 +49,7 @@ app.get('/api/get/users/:cnuID',(req,res)=>{
     let sql = `SELECT * FROM student WHERE CNUID= "${cnuID}";`
     db.query(sql,(err,result)=>{
         res.send(result);
-        console.log("GET STUDENT: ",result+ " CNUID: "+sql)
+        console.log("GET STUDENT: ",result[0]["firstName"]+ " CNUID: "+sql)
     });
 })
 
