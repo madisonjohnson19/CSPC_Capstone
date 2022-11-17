@@ -14,17 +14,54 @@ import DialogContent from "@material-ui/core/DialogContent";
 import NewWindow from 'react-new-window'
 import Popout from 'react-popout'
 import {BrowserRouter as Router, Routes, Route} from 'react-router-dom';
+// var src = [38.898556, -77.037852];
+// const [Lat_more, setLatMore] = useState('');
+// const [Lon_more, setLonMore] = useState('');
+var Lat_more="";
+var Lon_more="";
+function convertToDMS(src) {
+  function toDMS(n) {
+    // The sign doesn't matter
+    n = Math.abs(n);
 
-// import {Map, InfoWindow, Marker, GoogleApiWrapper} from 'google-maps-react';
-// import call from 'react-native-phone-call';
-// import { useHistory ,useLocation } from 'react-router-dom';
-
-// function googleMaps() {
-//   window.location.replace('https://maps.google.com');
+    // Get the degrees
+    // var d = n;
+   
+    var d = Math.floor(n);
+    console.log("D: "+n)
+    // Strip off the answer we already have
+    n = n - d;
+    // And then put the minutes before the '.'
+    n *= 60;
+    
+    // Get the minutes
+    var m = Math.floor(n);
+    // Remove them from the answer
+    n = n - m;
+    // Put the seconds before the '.'
+    n *= 60;
         
-//           return "null";
+    // Get the seconds
+    // Should this be round? Or rounded by special rules?
+    var s = Math.floor(n);
 
-// }
+    // Put it together.
+    return "" + d + " " + m + " " + s;
+
+  }
+
+  // var dir0 = src[0] > 0 ? "N" : "S";
+  
+  // var dir1 = src[1] > 0 ? "E" : "W";
+  
+  
+  
+  Lat_more=(toDMS(src[0]) )
+  Lon_more=(toDMS(src[1]) )
+  // console.log("TO DMS: "+toDMS(src[0]) + dir0);
+  // console.log("TO DMS: "+toDMS(src[1]) + dir1);
+
+}
 
 
 function HeroSection() {
@@ -85,9 +122,24 @@ function HeroSection() {
     const instance = Axios.create();
     e.preventDefault();
     try {
-      let latitute = location.coordinates.lat;
-      let longitute = location.coordinates.lng;
-      let gmap_link =`https://www.google.com/maps/@${latitute},${longitute},16z`;
+      
+      var latitute = location.coordinates.lat;
+      var longitute = location.coordinates.lng;
+      var src = [latitute,longitute];
+      let hold =convertToDMS(src);
+      console.log(Lat_more.split(" "))
+      var la_lat=Lat_more.split(" ");
+      var lo_lat=Lon_more.split(" ");
+      let lat_deg =la_lat[0]
+      let lat_min =la_lat[1]
+      let lat_sec =la_lat[2]
+      let long_deg =lo_lat[0]
+      let long_min =lo_lat[1]
+      let long_sec =lo_lat[2]
+
+      let gmap_link = `https://www.google.com/maps/place/${lat_deg}%C2%B0${lat_min}'${lat_sec}%22N+${long_deg}%C2%B0${long_min}'${long_sec}%22W/@${latitute},${longitute},19z/data=!3m1!4b1!4m14!1m7!3m6!1s0x0:0xd3987d8b5ebf0e9c!2zMzjCsDA0JzI2LjEiTiA3N8KwMzAnMDcuMSJX!3b1!8m2!3d${latitute}!4d${longitute}!3m5!1s0x0:0x12227b589cc3a10!7e2!8m2!3d${latitute}!4d-${longitute}`
+
+      // let gmap_link =`https://www.google.com/maps/@${latitute},${longitute},16z`;
       e.preventDefault();
       await instance.post("http://localhost:3001/api/insert/reportCrime", {dateTime:currentDate,location:gmap_link});
       // location:JSON.stringify(location)
