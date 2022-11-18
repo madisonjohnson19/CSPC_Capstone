@@ -3,6 +3,7 @@ import Button from '@mui/material/Button';
 import './HeroSection.css'
 import React, { useState, useEffect } from 'react';
 import useGeolocation from '../hooks/useGeolocation';
+import getMaxIdReqAssistance from '../hooks/getMaxIdReqAssistance';
 
 // import { useHistory } from "react-router-dom";
 import Axios from 'axios';
@@ -43,7 +44,9 @@ function convertToDMS(src) {
         
     // Get the seconds
     // Should this be round? Or rounded by special rules?
-    var s = Math.floor(n);
+    // var s = Math.floor(n);
+    var s = n;
+
 
     // Put it together.
     return "" + d + " " + m + " " + s;
@@ -73,6 +76,7 @@ function HeroSection() {
   const [reportID, setReportId] = useState('');
   // const [location, setLocation] = useState('');
   let l ="";
+  const lID =getMaxIdReqAssistance();
   const location =useGeolocation();
   const current = new Date();
   const [currentDate, setCurrentDate] = useState('');
@@ -102,6 +106,7 @@ function HeroSection() {
     );
   }, []);
   const handleClickToOpen = () => {
+    
     setOpen(true);
   };
   
@@ -127,21 +132,25 @@ function HeroSection() {
       var longitute = location.coordinates.lng;
       var src = [latitute,longitute];
       let hold =convertToDMS(src);
-      console.log(Lat_more.split(" "))
+      
       var la_lat=Lat_more.split(" ");
       var lo_lat=Lon_more.split(" ");
+      console.log("LO: "+lo_lat)
+      console.log("LA: "+la_lat)
       let lat_deg =la_lat[0]
       let lat_min =la_lat[1]
       let lat_sec =la_lat[2]
       let long_deg =lo_lat[0]
       let long_min =lo_lat[1]
       let long_sec =lo_lat[2]
+      console.log("LO SEC: "+long_sec)
 
-      let gmap_link = `https://www.google.com/maps/place/${lat_deg}%C2%B0${lat_min}'${lat_sec}%22N+${long_deg}%C2%B0${long_min}'${long_sec}%22W/@${latitute},${longitute},19z/data=!3m1!4b1!4m14!1m7!3m6!1s0x0:0xd3987d8b5ebf0e9c!2zMzjCsDA0JzI2LjEiTiA3N8KwMzAnMDcuMSJX!3b1!8m2!3d${latitute}!4d${longitute}!3m5!1s0x0:0x12227b589cc3a10!7e2!8m2!3d${latitute}!4d-${longitute}`
-
+      let gmap_link = `https://www.google.com/maps/place/${lat_deg}%C2%B0${lat_min}'${lat_sec}%22N+${long_deg}%C2%B0${long_min}'${long_sec}%22W/@${latitute},${longitute},19z/data=!3m1!4b1!4m14!1m7!3m6!1s0x0:0xd3987d8b5ebf0e9c!2zMzjCsDA0JzI2LjEiTiA3N8KwMzAnMDcuMSJX!3b1!8m2!3d${latitute}!4d${longitute}!3m5!1s0x0:0x12227b589cc3a10!7e2!8m2!3d${latitute}!4d${longitute}`
+          // let gmap_link = `https://www.google.com/search?q=googgle+maps+where+am+i&oq=googgle+maps+where+am+i&aqs=chrome..69i57j0i13i512l5j0i22i30l4.5618j0j4&sourceid=chrome&ie=UTF-8`
       // let gmap_link =`https://www.google.com/maps/@${latitute},${longitute},16z`;
       e.preventDefault();
-      await instance.post("http://localhost:3001/api/insert/reportCrime", {dateTime:currentDate,location:gmap_link});
+      console.log("CNU ID WHEN REQUEST: "+ lID)
+      await instance.post("http://localhost:3001/api/insert/reportCrime", {lastID:lID,dateTime:currentDate,location:gmap_link});
       // location:JSON.stringify(location)
       
       // console.log("pOSTED BITCH: "+ firstName)
@@ -157,7 +166,7 @@ function HeroSection() {
   useEffect(() => {
     const Getcategory1 = async () => {
   Axios('http://localhost:3001/api/delete/cancelRequest/maxID')
-    .then(res => setLastID(1+res.data))
+    .then(res => setLastID(1+parseInt(res.data, 10)))
     .catch(err => console.log(err))
     };
     Getcategory1();
@@ -169,11 +178,12 @@ function HeroSection() {
     //   console.log("MAXID: "+lastID);
     
       
-      console.log("MAXID: "+lastID);
+      console.log("MAXID: "+lID);
     console.log("GETMAXID ENDED")
     
   };
   const handleUpdate = async (e) => {
+    console.log("handleUpdate")
    
    
     const instance = Axios.create();
@@ -181,8 +191,8 @@ function HeroSection() {
     e.preventDefault();
     try {
       e.preventDefault();
-      console.log("CNU ID: "+cnuID+ " LAST ID: "+ lastID)
-      await instance.put("http://localhost:3001/api/update/addCNUID/maxID", {cnuID: cnuID,lastID:lastID});
+      console.log("CNU ID: "+cnuID+ " LAST ID: "+ lID)
+      await instance.put("http://localhost:3001/api/update/addCNUID/maxID", {cnuID: cnuID,lastID:lID});
       
 
       
@@ -191,6 +201,7 @@ function HeroSection() {
       console.log("ERRO: " +err);
       // setError(true)
     }
+    console.log("UPDATE: " +lID);
     
   };
   const deleteLast =async (e) =>{
@@ -202,7 +213,7 @@ function HeroSection() {
       .catch(err => console.log(err))
       // results=JSON.parse(JSON.stringify(results))
  
-      console.log("GET LAST ID: ",lastID)
+      console.log("GET LAST ID: ",lID)
      
     }catch (err) {
         console.log("ERRO: " +err);
@@ -219,29 +230,16 @@ function HeroSection() {
     try {
      
       console.log("LAST ID: ",lastID)
-      await instance.post("http://localhost:3001/api/delete/moveOpenToResolve", {aRID: lastID});
+      await instance.post("http://localhost:3001/api/delete/moveOpenToResolve", {aRID: lID});
 
-      console.log("DELETE BITCH: "+ lastID+1)
+      console.log("DELETE BITCH: "+ JSON.stringify(lID))
       // navigate("/");
     } catch (err) {
       console.log("ERRO: " +err);
       // setError(true)
     }
   };
- 
-  // const onCall=()=>{
-  //   const args ={
-  //     number: phone,
-  //     prompt: true,
-  //   };
-  //   call(args).catch(console.error)
-  // }
-// const h = ()=>{
-//   <Route path='/gmaps' component={() => { 
-//     window.location.href = 'https://google.com'; 
-//     return null;
-// }}/>
-// }
+
 
 
   return (

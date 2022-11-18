@@ -12,24 +12,30 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import { Outlet, Link } from "react-router-dom";
+import studentExist from "../../hooks/studentExist";
+
 
 
 function AssistanceReq() {
+  const [cnuID, setcnuID] = useState('');
   const [showOpen, setShowOpen] = useState(true)
   const [showResolve, setShowResolve] = useState(false)
   const [showStudent, setShowStudent] = useState(false)
   const [showStudentInfo, setShowStudentInfo] = useState(false)
   const [studentInfo, setStudentInfo] = React.useState([]);
   const [open, setOpen] = React.useState(false);
-  let cnuID="";
+  // let cnuID="1";
   let time ="";
   let reportId="";
   let location ="";
+  let exists = studentExist(cnuID);
   const [category, setCategory] = useState([]);
   const [resolve, setResolve] = useState([]);
   
   
-
+const getExt=(id)=>{
+  return studentExist().las;
+}
   useEffect(() => {
     const getcategory = async () => {
     Axios('http://localhost:3001/api/get/report')
@@ -46,12 +52,27 @@ function AssistanceReq() {
 
   const HandleOpen = async(c) => {
     console.log("HandleOpen ID: "+c)
+
+    // await Axios.get(`http://localhost:3001/api/get/checkStudExists/${c}`)
+    // .then(res => setExists(res.data))
+    //   .catch(err => console.log("FDS " +err))
+    //   // {setSetExists(exists)}let string_=(r[0]["exists"])  
     
-    await Axios.get(`http://localhost:3001/api/get/users/${c}`)
-    .then(res => setStudentInfo(res.data))
-      .catch(err => console.log("FDS " +err))
-      // console.log("HandleOpen fName: "+studentInfo[0].firstName)
-      {setSetStudentInfo()}
+    // setcnuID(c);
+    // console.log("EXISTS: " + cnuID)
+    // console.log("EXISTS: " + exists)
+
+    try{
+      console.log("TRYING")
+      await Axios.get(`http://localhost:3001/api/get/users/${c}`)
+      .then(res => setStudentInfo(res.data))
+        .catch(err => console.log("FDS " +err))
+        // console.log("HandleOpen fName: "+studentInfo[0].firstName)
+        {setSetStudentInfo()}
+    }catch(e){
+      console.log("CATCCH")
+    }
+    
       
     // setStudentInfo(response.data);
     // console.log("SI "+studentInfo[0].lastName)
@@ -107,9 +128,11 @@ function AssistanceReq() {
     setShowStudentInfo(true)
   }
 
+
   const handleClickToOpen = (d) => {
-    console.log("handleClickToOpen")
+    console.log("handleClickToOpen: "+d.CNUID)
     setSetCNUID(d);
+    setcnuID(d.CNUID);
     
     // handleToOpenStudent();
     setOpen(true);
