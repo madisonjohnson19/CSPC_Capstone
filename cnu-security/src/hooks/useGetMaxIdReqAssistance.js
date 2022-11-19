@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import Axios from 'axios';
 
 // const [lastID, setLastID] = useState('');
-const getMaxIdReqAssistance = () => {
+const useGetMaxIdReqAssistance = () => {
     // let lastID ="";
     const [lastID, setLastID] = useState('');
 
@@ -23,4 +23,4 @@ const getMaxIdReqAssistance = () => {
     return lastID;
 };
 
-export default getMaxIdReqAssistance;
+export default useGetMaxIdReqAssistance;

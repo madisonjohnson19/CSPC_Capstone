@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Axios from 'axios';
 
-const studentExist = () => {
+const useStudentExist = () => {
     const [lastID, setLastID] = useState('');
 
 
@@ -30,4 +30,4 @@ const studentExist = () => {
     return lastID;
 };
 
-export default studentExist;
+export default useStudentExist;
