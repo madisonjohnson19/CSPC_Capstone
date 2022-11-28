@@ -1,0 +1,40 @@
+.l{
+    margin-top: 90px;
+    background-color: red;
+}
+
+.dates{
+    /* color:red; */
+    flex: 1;
+    flex-direction: row;
+    
+    /* background-color: orange; */
+}
+.title{
+    
+    font-family:"Roboto", "Helvetica", "Arial", sans-serif;
+    font-size: 36pt;
+}
+.description{
+    font-family:"Roboto", "Helvetica", "Arial", sans-serif;
+    margin-top: 2%;
+    /* margin-left: 14%; */
+    font-size: 16pt;
+    
+
+}
+.buttons{
+    /* background-color: red; */
+    padding: 10px 10px;
+}
+table{
+    /* width: 3000px; */
+    table-layout: fixed;
+    
+}
+td{
+
+  white-space: unset;
+    overflow: break-word;
+    /* text-align: center; */
+}
