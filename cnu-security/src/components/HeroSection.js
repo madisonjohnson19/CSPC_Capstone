@@ -3,7 +3,7 @@ import Button from '@mui/material/Button';
 import './HeroSection.css'
 import React, { useState, useEffect } from 'react';
 import useGeolocation from '../hooks/useGeolocation';
-import getMaxIdReqAssistance from '../hooks/getMaxIdReqAssistance';
+import useGetMaxIdReqAssistance from '../hooks/useGetMaxIdReqAssistance';
 
 // import { useHistory } from "react-router-dom";
 import Axios from 'axios';
@@ -76,7 +76,7 @@ function HeroSection() {
   const [reportID, setReportId] = useState('');
   // const [location, setLocation] = useState('');
   let l ="";
-  const lID =getMaxIdReqAssistance();
+  const lID =useGetMaxIdReqAssistance();
   const location =useGeolocation();
   const current = new Date();
   const [currentDate, setCurrentDate] = useState('');

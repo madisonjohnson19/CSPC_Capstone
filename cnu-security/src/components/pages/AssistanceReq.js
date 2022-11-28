@@ -12,7 +12,7 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import { Outlet, Link } from "react-router-dom";
-import studentExist from "../../hooks/studentExist";
+import useStudentExist from "../../hooks/useStudentExist";
 
 
 
@@ -28,14 +28,12 @@ function AssistanceReq() {
   let time ="";
   let reportId="";
   let location ="";
-  let exists = studentExist(cnuID);
+  let exists = useStudentExist(cnuID);
   const [category, setCategory] = useState([]);
   const [resolve, setResolve] = useState([]);
   
   
-const getExt=(id)=>{
-  return studentExist().las;
-}
+
   useEffect(() => {
     const getcategory = async () => {
     Axios('http://localhost:3001/api/get/report')
