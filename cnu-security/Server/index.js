@@ -43,17 +43,75 @@ app.get('/api/get/report/resolve',(req,res)=>{
         res.send(result);
     });
 })
+app.get('/api/get/CrimeReport',(req,res)=>{
+    const sqlSelect= "SELECT * FROM crimereport;";
+    db.query(sqlSelect,(err,result)=>{
+        res.send(result);
+    });
+})
+app.get('/api/get/resolved_campusreport',(req,res)=>{
+    const sqlSelect= "SELECT * FROM resolved_campusreport;";
+    db.query(sqlSelect,(err,result)=>{
+        res.send(result);
+    });
+})
+app.get('/api/get/campusReport',(req,res)=>{
+    const sqlSelect= "SELECT * FROM campusreport;";
+    db.query(sqlSelect,(err,result)=>{
+        res.send(result);
+    });
+})
+
+app.get('/api/get/resolved_crimereport',(req,res)=>{
+    const sqlSelect= "SELECT * FROM resolved_crimereport;";
+    db.query(sqlSelect,(err,result)=>{
+        res.send(result);
+    });
+})
 app.get('/api/get/users/:cnuID',(req,res)=>{
     let cnuID = req.params.cnuID;
     // let cnuID = "12345";
     
     // let sql = `(SELECT * FROM student WHERE CNUID= "${cnuID}");`
-    let sql = `SELECT distinct *,count(a.CNUID)
-    FROM student s, assistancerequest a
-    WHERE  a.CNUID= "${cnuID}" and a.CNUID= s.cnuid;`
+    let sql = `SELECT distinct *,count(CNUID)
+    FROM student 
+    WHERE  CNUID= "${cnuID}";`
     db.query(sql,(err,result)=>{
         res.send(result);
         console.log("GET STUDENT: ",result[0]["firstName"]+ " CNUID: "+sql)
+    });
+})
+app.get('/api/get/reportCrime/crimeReport/:cnuID',(req,res)=>{  
+    let cnuID = req.params.cnuID;
+    console.log(" REPORT CRIME CNU ID", cnuID )
+    let sql = `SELECT *,1
+    FROM crimereport
+    WHERE cnuID= "${cnuID}";`
+    db.query(sql,(err,result)=>{
+        res.send(result);
+        console.log("REPORT CRIME GET STUDENT: ",result+ " CNUID: ")
+    });
+})
+app.get('/api/get/reportCrime/assistanceRequest/:cnuID',(req,res)=>{  
+    let cnuID = req.params.cnuID;
+    console.log(" REPORT CNU ID", cnuID )
+    let sql = `SELECT *,1 
+    FROM assistancerequest
+    WHERE cnuID= "${cnuID}";`
+    db.query(sql,(err,result)=>{
+        res.send(result);
+        console.log("REPORT CRIME GET STUDENT: ",result+ " CNUID: ")
+    });
+})
+app.get('/api/get/userReports/campusReports/:cnuID',(req,res)=>{  
+    let cnuID = req.params.cnuID;
+    console.log(" REPORT CNU ID", cnuID )
+    let sql = `SELECT *,1 
+    FROM campusreport
+    WHERE cnuID= "${cnuID}";`
+    db.query(sql,(err,result)=>{
+        res.send(result);
+        console.log("REPORT CRIME GET STUDENT: ",result+ " CNUID: ")
     });
 })
 app.get('/api/get/checkStudExists/:cnuID',(req,res)=>{
@@ -125,9 +183,96 @@ app.post('/api/get/report/moveOpenToResolve',(req,res)=>{
     })
  
 })
+app.post('/api/insert/crimeReport',(req,res)=>{
+
+    console.log('report transfered: '+req.body.crimeID)
+    let post = {cnuID: req.body.cnuID, 
+        typeOfCrime:req.body.typeOfCrime, 
+        location: req.body.location,
+        dates: req.body.dates, 
+        description:req.body.description, 
+        suspectName: req.body.suspectName,
+        vehicleDescription: req.body.vehicleDescription}
+    // let sql_delete ='DELETE FROM assistancerequest WHERE aRID = 4;'
+    let sql = 'INSERT INTO crimereport SET ?'
+    let query = db.query(sql, post, err =>{
+        if (err){
+            throw err
+        }
+        res.send('Student added!')
+        console.log(' added: '+req.body.time)
+    })
+ 
+})
+app.post('/api/delete/crime/moveOpenToResolve',(req,res)=>{
+    let post_delete = req.body.crimeID
+    let sql_delete =`DELETE FROM crimereport WHERE crimeID = ${post_delete};`
+    db.query(sql_delete, post_delete, (err, rows) => {
+        if (err){
+            throw err
+        }
+        res.send('Student added!')
+        console.log('SQL  DELETED: '+sql_delete)
+        
+    })
+})
+app.post('/api/delete/campus/moveOpenToResolve',(req,res)=>{
+    
+    let post_delete = req.body.campusReportID
+    console.log("CampusReport Delete campusReportID: ",post_delete)
+    let sql_delete =`DELETE FROM campusreport WHERE campusReportID = ${post_delete};`
+    db.query(sql_delete, post_delete, (err, rows) => {
+        if (err){
+            throw err
+        }
+        res.send('Student added!')
+        console.log('SQL  DELETED: '+sql_delete)
+        
+    })
+})
+app.post('/api/get/crime/moveOpenToResolve',(req,res)=>{
+
+    console.log('report transfered: '+req.body.crimeID)
+    let post = {cnuID: req.body.cnuID, typeOfCrime:req.body.typeOfCrime,
+         location:req.body.location, dates: req.body.dates,
+        description: req.body.description, suspectName:req.body.suspectName, 
+        vehicleDescription: req.body.vehicleDescription}
+    // let sql_delete ='DELETE FROM assistancerequest WHERE aRID = 4;'
+    let sql = 'INSERT INTO resolved_crimereport SET ?'
+    let query = db.query(sql, post, err =>{
+        if (err){
+            throw err
+        }
+        res.send('Student added!')
+        console.log(' added: '+req.body.time)
+    })
+ 
+})
+app.post('/api/get/campus/moveOpenToResolve',(req,res)=>{
+
+    console.log('report transfered: '+req.body.campusReportID)
+    let post = {cnuID: req.body.cnuID, location: req.body.location, problem: req.body.problem}
+    // let sql_delete ='DELETE FROM assistancerequest WHERE aRID = 4;'
+    let sql = 'INSERT INTO resolved_campusreport SET ?'
+    let query = db.query(sql, post, err =>{
+        if (err){
+            throw err
+        }
+        res.send('Student added!')
+        console.log(' added: '+req.body.time)
+    })
+ 
+})
 
 app.post('/api/insert/test', (req, res)=>{
-    let post = {firstname:req.body.firstName,lastName:req.body.lastName, cnuID:975119}
+    let post = {firstname:req.body.firstName,
+        lastName:req.body.lastName, 
+        cnuID:req.body.cnuID,
+        email:req.body.email,
+        phone:req.body.phone,
+        EmConName:req.body.EmConName,
+        EmConPhone:req.body.EmConPhone,
+        EmConRelation:req.body.EmConRelation}
     let sql = 'INSERT INTO student SET ?'
     let query = db.query(sql, post, err =>{
         if (err){
@@ -141,6 +286,18 @@ app.post('/api/insert/reportCrime', (req, res)=>{
     console.log('report added: '+req.body.aRID)
     let post = {aRID:req.body.lastID,dateTime:req.body.dateTime ,location: req.body.location}
     let sql = 'INSERT INTO assistancerequest SET ?'
+    let query = db.query(sql, post, err =>{
+        if (err){
+            throw err
+        }
+        res.send('Student added!')
+        console.log(' added: '+req.body.time)
+    })
+})
+app.post('/api/insert/campusreport', (req, res)=>{
+    console.log('report added: '+req.body.campusReportID)
+    let post = {cnuID: req.body.cnuID, location: req.body.location, problem: req.body.problem}
+    let sql = 'INSERT INTO campusreport SET ?'
     let query = db.query(sql, post, err =>{
         if (err){
             throw err
