@@ -1,23 +1,30 @@
 import '../App.css'
 import Button from '@mui/material/Button';
 import './HeroSection.css'
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import useGeolocation from '../hooks/useGeolocation';
 import useGetMaxIdReqAssistance from '../hooks/useGetMaxIdReqAssistance';
 
-// import { useHistory } from "react-router-dom";
+import BasicSnackbar from "../hooks/useSnackbar"
 import Axios from 'axios';
 import Dialog from "@material-ui/core/Dialog";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
+import  {Email} from './Email';
 import NewWindow from 'react-new-window'
 import Popout from 'react-popout'
 import {BrowserRouter as Router, Routes, Route} from 'react-router-dom';
 // var src = [38.898556, -77.037852];
 // const [Lat_more, setLatMore] = useState('');
 // const [Lon_more, setLonMore] = useState('');
+const SnackbarType = {
+   
+  success: "success",
+  fail: "fail",
+ 
+};
 var Lat_more="";
 var Lon_more="";
 function convertToDMS(src) {
@@ -74,7 +81,8 @@ function HeroSection() {
   const [time, setTime] = useState('');
   const [lastID, setLastID] = useState('');
   const [reportID, setReportId] = useState('');
-  // const [location, setLocation] = useState('');
+  const [severity, setSeverity] = useState('');
+  const [message, setMessage] = useState('');
   let l ="";
   const lID =useGetMaxIdReqAssistance();
   const location =useGeolocation();
@@ -82,17 +90,23 @@ function HeroSection() {
   const [currentDate, setCurrentDate] = useState('');
   const [cnuID, setcnuID] = useState('');
   const [playAnimation, setPlayAnimation] = useState(false);
- 
-  // const ref = React.useRef(null);
-  // const [map, setMap] = React.useState();
-  // useEffect(() => {
-  //   if (ref.current && !map) {
-  //     setMap(new window.google.maps.Map(ref.current, {}));
-  //     console.log("YELO : "+map)
-  //   }
+  const [snackbarOpen, setSnackbarOpen] = useState(false);
+  const handleSnackbarClick = (severity1,message1) => {
 
-  // }, [ref, map]);
+    console.log("snackbar called "+severity)
+    setSeverity(severity1)
+    setMessage(message1)
+    console.log("snackbar called "+severity+ " "+message)
+    setSnackbarOpen(true);
+  } ;
 
+  const handleSnackbarClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    setSnackbarOpen(false);
+  };
+  
   useEffect(() => {
     var date = new Date().getDate(); //Current Date
     var month = new Date().getMonth() + 1; //Current Month
@@ -111,6 +125,7 @@ function HeroSection() {
   };
   
   const handleToClose = () => {
+  
     window.location.reload();
     setOpen(false);
   };
@@ -120,6 +135,7 @@ function HeroSection() {
  
 
   const handleClick = async (e) => {
+
     
    
     {handleClickToOpen()}
@@ -152,9 +168,9 @@ function HeroSection() {
       console.log("CNU ID WHEN REQUEST: "+ lID)
       await instance.post("http://localhost:3001/api/insert/reportCrime", {lastID:lID,dateTime:currentDate,location:gmap_link});
       // location:JSON.stringify(location)
-      
+      {handleSnackbarClick("success","CNU PD have been notified")}
       // console.log("pOSTED BITCH: "+ firstName)
-      // navigate("/");
+      { Email() };
     } catch (err) {
       console.log("ERRO: " +err);
       // setError(true)
@@ -193,12 +209,13 @@ function HeroSection() {
       e.preventDefault();
       console.log("CNU ID: "+cnuID+ " LAST ID: "+ lID)
       await instance.put("http://localhost:3001/api/update/addCNUID/maxID", {cnuID: cnuID,lastID:lID});
-      
+      {handleSnackbarClick("success","CNUID has been updated.")}
 
       
       // navigate("/");
     } catch (err) {
       console.log("ERRO: " +err);
+      {handleSnackbarClick("error","CNUID failed to be updated.")}
       // setError(true)
     }
     console.log("UPDATE: " +lID);
@@ -212,11 +229,13 @@ function HeroSection() {
       await instance.get('http://localhost:3001/api/delete/cancelRequest/maxID').then(res => setLastID(res.data))
       .catch(err => console.log(err))
       // results=JSON.parse(JSON.stringify(results))
+      {handleSnackbarClick("success","Your request  has been cancelled")}
  
       console.log("GET LAST ID: ",lID)
      
     }catch (err) {
         console.log("ERRO: " +err);
+        {handleSnackbarClick("error","Your request  failed to be cancelled")}
         // setError(true)
       }
       {deleteRequest()}
@@ -272,10 +291,11 @@ function HeroSection() {
         {/* <div className ='hero-btns'> */}
             <Button 
            
+          //  onClick={() => {
+          //   snackbarRef.current.show();
+          // }}
             
-            
-           onClick={handleClick} //openInNewTab('https://maps.google.com')
-     
+           onClick={handleClick} 
              style={{
               top: "-150px",
               color:"#fff",
@@ -297,7 +317,8 @@ function HeroSection() {
                             </div> */}
             
             <Button className="call" 
-             href="/gMaps"
+            // onClick={() =>handleSnackbarClick("success","CNU PD have been notified")}
+
             style={{
               top: "-130px",
               color:"#fff",
@@ -305,7 +326,7 @@ function HeroSection() {
               backgroundColor: "#d1c158",
               padding: "8px 26px",
               fontSize: "18px"
-          }}>
+          }}href="tel: 5714818626">
                Call CNU PD 
             </Button>
             <Button
@@ -334,82 +355,18 @@ function HeroSection() {
         >
           Tutorial <i className='far fa-play-circle' />
         </Button>
-
+        
+        {/* <div className="snackbar"> */}
+    <BasicSnackbar 
+            open={snackbarOpen}
+            onClose={handleSnackbarClose}
+            severity= {severity}
+            message={message}
+            
+        />
+    {/* </div> */}
     </div>
+    
   )
 }
 export default HeroSection
-// import '../App.css'
-// import Button from '@mui/material/Button';
-// import './HeroSection.css'
-// import React, { useState } from 'react';
-// // import { getCardHeaderUtilityClass } from '@mui/material';
-
-
-
-
-
-// function HeroSection() {
- 
-
-
-//   return (
-//     <div className='hero-container'>
-      
-//         {/* <div className ='hero-btns'> */}
-//             <Button 
-//             // onClick={() => getPosition()}
-//              style={{
-//               top: "-150px",
-//               color:"#fff",
-//               width:"200px",
-//               borderColor: 'white',
-//               backgroundColor: "#700f0f",
-//               padding: "8px 26px",
-//               fontSize: "18px"
-//           }}
-//             >
-//                 Notify Now
-//             </Button>
-            
-//             <Button className="call" 
-//             style={{
-//               top: "-130px",
-//               color:"#fff",
-//               width:"200px",
-//               backgroundColor: "#d1c158",
-//               padding: "8px 26px",
-//               fontSize: "18px"
-//           }}>
-//                Call CNU PD 
-//             </Button>
-//             <Button
-//              style={{
-//               top: "-110px",
-//               color:"#fff",
-//               backgroundColor: "#116319",
-//               width:"200px",
-//               padding: "8px 26px",
-//               fontSize: "18px"
-//           }} href="/more">
-//                More:
-//             </Button>
-//           <Button
-//           style={{
-//             top: "-50px",
-//             color:"#fff",
-//             borderColor: "#fff",
-//             width:"200px",
-//             backgroundColor: "transparent",
-//             padding: "8px 26px",
-//             fontSize: "18px"}}
-//             variant='outlined'
-//         >
-//           Tutorial <i className='far fa-play-circle' />
-//         </Button>
-
-//     </div>
-//   )
-// }
-
-// export default HeroSection

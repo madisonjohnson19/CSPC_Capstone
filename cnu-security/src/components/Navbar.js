@@ -32,19 +32,26 @@ function Navbar() {
           <Link to='/' className='navbar-logo' onClick={closeMobileMenu}>
             CNU Secure
             {/* <image src='C:\Users\jmadd\OneDrive\Pictures\Screenshots\CPSC_CAPSTONE\Campus-Security\CSPC_Capstone\cnu-security\src\images\cnu_logo.png'/> */}
-
-            <i class='fab fa-typo3' />
+            {/* <i class="fa-duotone fa-shield-quartered"></i> */}
+            <i class="fas fa-shield-alt"></i>          
+            {/* <i class='fab fa-typo3' /> */}
           </Link>
           <div className='menu-icon' onClick={handleClick}>
 
             <i className={click ? 'fas fa-times' : 'fas fa-bars'} />
           </div>
           <ul className={click ? 'nav-menu active' : 'nav-menu'}>
+          <li className='nav-item'>
+              <Link to='/pdDashboard' className='nav-links' onClick={closeMobileMenu}>
+                PD Home
+              </Link>
+            </li>
             <li className='nav-item'>
               <Link to='/' className='nav-links' onClick={closeMobileMenu}>
                 Home
               </Link>
             </li>
+            
 
             <li>
             <Button 
@@ -58,9 +65,9 @@ function Navbar() {
               fontSize: "14px"
           }}
             variant="outlined" className='btn-signIn'
-            boarder href="/signin"
+            boarder href="/signup"
             >
-            Sign in
+            Register
           </Button>
              
             </li>

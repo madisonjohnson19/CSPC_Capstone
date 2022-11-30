@@ -1,25 +1,26 @@
-body {
-    background: #0c1c38;
-    margin: 0;
-    padding: 0;
-    color:white;
-  }
-.header{
+
+.page .header{
+  font-family:"Roboto", "Helvetica", "Arial", sans-serif;
   justify-content: center;
+  /* color: red; */
 }
  
   .page {
+    font-family:"Roboto", "Helvetica", "Arial", sans-serif;
     background: #0c1c38;
+    /* color: red; */
     color: white;
     max-width: 960px;
     padding: 20px;
     margin: 0 auto;
     justify-content: center;
     align-items: center;
+    text-align: center;
   }
 
   
   .buttons-wrapper {
+    text-align: center;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -31,6 +32,7 @@ body {
   }
 
   .buttons-fun{
+    text-align: center;
     background-color: grey;
       border-color: grey;
       box-shadow: none;
@@ -47,4 +49,5 @@ body {
       height: 150px;
       width: 150px;
     }
+
     

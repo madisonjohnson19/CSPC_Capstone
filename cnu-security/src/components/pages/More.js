@@ -21,74 +21,75 @@ function More() {
     <section>
       <Button variant="contained" className='buttons-fun' 
       style={{
-        background:"grey",
+        background:"#3E4043",
         padding:"0px 0px",
-        height:"100px",
-        width:"100px",
+        height:"110px",
+        width:"110px",
         margin:"10px",
         textAlign:"center"
       }}href="/reportCrime"> Report a Crime</Button>
       <Button variant="contained" className='buttons-fun'
       style={{
-        background:"grey",
+        background:"#3E4043",
         padding:"0px 0px",
-        height:"100px",
-        width:"100px",
+        height:"110px",
+        width:"110px",
         margin:"10px",
         textAlign:"center"
       }}
       href="/silentwitness">Silent Witness</Button>
       <Button  variant="contained"className='buttons-fun'
       style={{
-        background:"grey",
+        background:"#3E4043",
         padding:"0px 0px",
-        height:"100px",
-        width:"100px",
+        height:"110px",
+        width:"110px",
         margin:"10px"
-      }}>Contact PD anonymous</Button>
+      }}
+      href="/ContactPD">Contact PD anonymous</Button>
       <Button  variant="contained" className='buttons-fun'
       style={{
-        background:"grey",
+        background:"#3E4043",
         padding:"0px 0px",
-        height:"100px",
-        width:"100px",
+        height:"110px",
+        width:"110px",
         margin:"10px",
         textAlign:"center"
-      }}>Campus Report</Button>
+      }} href="/CampusReport">Campus Report</Button>
       <Button  variant="contained"  className='buttons-fun'
       style={{
-        background:"grey",
+        background:"#3E4043",
         padding:"0px 0px",
-        height:"100px",
-        width:"100px",
+        height:"110px",
+        width:"110px",
         margin:"10px",
         textAlign:"center"
       }}href="/requestEscort"> Request Escort</Button>
       <Button  variant="contained" className='buttons-fun'
       style={{
-        background:"grey",
+        background:"#3E4043",
         padding:"0px 0px",
-        height:"100px",
-        width:"100px",
+        height:"110px",
+        width:"110px",
         margin:"10px"
       }}
       href="/campusmap">Campus Map</Button>
       <Button variant="contained" className='buttons-fun'
       style={{
-        background:"grey",
+        background:"#3E4043",
         padding:"0px 0px",
-        height:"100px",
-        width:"100px",
+        height:"110px",
+        width:"110px",
         margin:"10px",
         textAlign:"center"
       }}href="/userReports">View Your Reports</Button>
       <Button  variant="contained" className='buttons-fun'
         href="/securityreources"
         style={{
-          background:"grey",
+          background:"#3E4043",
           padding:"0px 0px",
-          height:"100px",
-          width:"100px",
+          height:"110px",
+        width:"110px",
           margin:"10px",
           textAlign:"center"
         }}>Security Resources</Button>

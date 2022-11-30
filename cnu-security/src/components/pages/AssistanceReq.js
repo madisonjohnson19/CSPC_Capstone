@@ -13,6 +13,7 @@ import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import { Outlet, Link } from "react-router-dom";
 import useStudentExist from "../../hooks/useStudentExist";
+import Stack from '@mui/material/Stack';
 
 
 
@@ -46,20 +47,22 @@ function AssistanceReq() {
     getcategory();
 
   }, []);
+  useEffect(() => {
+    const getcategory = async () => {
+    Axios('http://localhost:3001/api/get/report/resolve')
+      .then(res => setResolve(res.data))
+      .catch(err => console.log(err))
+      // console.log("C: ",category)
+    };
+  
+    
+    getcategory();
+
+  }, []);
   
 
   const HandleOpen = async(c) => {
     console.log("HandleOpen ID: "+c)
-
-    // await Axios.get(`http://localhost:3001/api/get/checkStudExists/${c}`)
-    // .then(res => setExists(res.data))
-    //   .catch(err => console.log("FDS " +err))
-    //   // {setSetExists(exists)}let string_=(r[0]["exists"])  
-    
-    // setcnuID(c);
-    // console.log("EXISTS: " + cnuID)
-    // console.log("EXISTS: " + exists)
-
     try{
       console.log("TRYING")
       await Axios.get(`http://localhost:3001/api/get/users/${c}`)
@@ -196,17 +199,17 @@ function AssistanceReq() {
 
       <div className="container">
             <div className="buttons">  
+            <Stack justifyContent={"center"} spacing={2} direction="row">
               <Button  className="b" onClick={onClick}
               style={{
-                backgroundColor:"grey",
-                marginRight:"20px"
-                }} >Open</Button>
+                backgroundColor:"#3E4043" }}  >Open</Button>
               <Button className="b" onClick={onClickResolve}
               style={{
-                backgroundColor:"grey",
-          
+                backgroundColor:"#3E4043",
+                // marginBottom: "10px"
               }} 
               >Resolved</Button>
+              </Stack>
 
               
             </div>
@@ -215,7 +218,7 @@ function AssistanceReq() {
 
         <div className="t1">
      
-        {showOpen && <h1 className="title">Open Request</h1>}
+        {showOpen && <h1 justifyContent={"center"} className="title">Open Request</h1>}
           {showOpen   && <table className="table table-bordered text-white">
        
             <thead>
@@ -232,7 +235,7 @@ function AssistanceReq() {
                   
                 <tr key={getcate}>
                   <td>{getcate.aRID}</td>
-                  <td> <Link 
+                  <td> <Link style={{color:"#87A8EF"}}
                   onClick={()=>openInNewTab(getcate.location)}>Google Map Location</Link></td>
                   {/* onClick={handleClickToOpen()} */}
                   <td> <button onClick={() => handleClickToOpen(getcate)}  className="btn btn-success"> {getcate.CNUID}</button></td>
@@ -248,27 +251,30 @@ function AssistanceReq() {
           {showResolve==true && <h1 className="title">Resolved Requests</h1>}
 
           {showResolve==true &&<table className="table table-bordered text-white">
-           
-            <thead>
-              <tr>
-                <th>Report ID</th>
-                <th>Location</th>
-                <th>DateTime</th>
-                <th>Action</th>
-              </tr>
-            </thead>
-            <tbody>
-              {resolve.map((getcate1) => (
-                  
-                <tr key={getcate1}>
-                  <td>{getcate1.aRID}</td>
-                  <td> {getcate1.location}</td>
-                  <td> {getcate1.dateTime}</td>
-                  <td><button onClick={() => deleteData(getcate1)} className="btn btn-success"> View </button> </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>}
+       
+       <thead>
+         <tr>
+           <th>Report ID</th>
+           <th>Location</th>
+           <th>Student ID</th>
+           <th>DateTime</th>
+         </tr>
+       </thead>
+       <tbody>
+         {resolve.map((getcate) => (
+             
+           <tr key={getcate}>
+             <td>{getcate.aRID}</td>
+             <td> <Link 
+             style={{color:"#87A8EF"}}
+             onClick={()=>openInNewTab(getcate.location)}>Google Map Location</Link></td>
+             {/* onClick={handleClickToOpen()} */}
+             <td> <button onClick={() => handleClickToOpen(getcate)}  className="btn btn-success"> {getcate.CNUID}</button></td>
+             <td> {getcate.dateTime}</td>
+           </tr>
+         ))}
+       </tbody>
+     </table>}
           
         
         </div>      

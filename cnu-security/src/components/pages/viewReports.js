@@ -13,6 +13,8 @@ import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import { Outlet, Link } from "react-router-dom";
 import useStudentExist from "../../hooks/useStudentExist";
+import Stack from '@mui/material/Stack';
+
 
 
 
@@ -51,7 +53,7 @@ function ViewReports() {
   }, []);
   useEffect(() => {
     const getcategory = async () => {
-    Axios('http://localhost:3001/api/get/crime/CrimeReport')
+    Axios('http://localhost:3001/api/get/resolved_crimereport')
       .then(res => setResolve(res.data))
       .catch(err => console.log(err))
       // console.log("C: ",category)
@@ -80,13 +82,14 @@ function ViewReports() {
 
   
   const handleClick = async (e) => {
+    console.log("handleClick: "+reportId)
     const instance = Axios.create();
     
     // e.preventDefault();
     try {
       // e.preventDefault();
       await instance.post("http://localhost:3001/api/get/crime/moveOpenToResolve", {
-        cnuID: cnuID,typeOfCrime:typeOfCrime, location:location, dates: dates,
+        crimeID: reportId,cnuID: cnuID, typeOfCrime:typeOfCrime, location:location, dates: dates,
         description: description, suspectName:suspectName, vehicleDescription: vehicleDescription});
       
       await instance.post("http://localhost:3001/api/delete/crime/moveOpenToResolve", {crimeID: reportId});
@@ -104,11 +107,7 @@ function ViewReports() {
   const onClickResolve = () => {setShowResolve(true);setShowOpen(false);
     // window.location.reload();
   }
-  const openInNewTab = url => {
 
-    const newWindow = window.open(url, '_blank', 'noopener,noreferrer')
-    if (newWindow) newWindow.opener = null 
-};
   const deleteData = (dataId) => {
     cnuID1 =(dataId.cnuID);
     typeOfCrime=(dataId.typeOfCrime);
@@ -208,18 +207,19 @@ function ViewReports() {
           View Crime Reports
         </div>
             <div className="buttons">  
+            <Stack justifyContent={"center"} spacing={2} direction="row">
               <Button  className="b" onClick={onClick}
               style={{
                 backgroundColor:"#3E4043",
-                marginRight:"70px",
-                marginBottom: "10px"
+               
                
                 }} >Open</Button>
               <Button className="b" onClick={onClickResolve}
               style={{
                 backgroundColor:"#3E4043",
-                marginBottom: "10px"}} 
+                }} 
               >Resolved</Button>
+              </Stack>
 
               
             </div>

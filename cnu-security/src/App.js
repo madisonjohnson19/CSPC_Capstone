@@ -78,28 +78,19 @@ import UserReports from './components/pages/UserReports';
 import SignIn from './components/pages/SignIn';
 import SignUp from './components/pages/SignUp';
 import PdDashboard from './components/pages/pdDashboard';
+import ViewCampusReports from './components/pages/viewCampusReports';
 import AssistanceReq from './components/pages/AssistanceReq';
-// import useToken from './components/useToken';
-import gMaps from './components/pages/gMaps';
+import CampusReport from './components/pages/CampusReport';
+import ViewReports from './components/pages/viewReports';
+import ContactPD from './components/pages/ContactPD';
+
+// import viewCampusReports from './components/pages/viewCampusReports';
 
 
 
-// function setToken(userToken) {
-//   sessionStorage.setItem('token', JSON.stringify(userToken));
-// }
 
-// function getToken() {
-//   const tokenString = sessionStorage.getItem('token');
-//   const userToken = JSON.parse(tokenString);
-//   return userToken?.token
-// }
 function App() {
-  // const { token, setToken } = useToken();
-  // const { e, d } = useToken();
-  // if(!token) {
-  //   return <SignIn setToken={setToken} />
-  // }
- 
+
   return (
 
     
@@ -109,6 +100,10 @@ function App() {
       <Routes>
         <Route path='/' exact element={<Home/>}/>
         <Route path='/more' exact element={<More/>}/>
+        <Route path='/ContactPD' exact element={<ContactPD/>}/>
+        <Route path='/ViewReports' exact element={<ViewReports/>}/>
+        <Route path='/viewCampusReports' exact element={<ViewCampusReports/>}/>
+        <Route path='/CampusReport' exact element={<CampusReport/>}/>
         <Route path="/securityreources" exact element={<SecurityResources />} />
         <Route path="/gMaps" exact element={<gMaps />} />
         <Route path="/campusmap" exact element={<CampusMap />} />
