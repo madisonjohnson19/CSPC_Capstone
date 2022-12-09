@@ -11,12 +11,12 @@
 
 
 ## After Cloning the repo
-### Navigate cnu-secure folder.
+### Navigate cnu-security folder.
 ### type npm install into the terminal. This will
 ### download all packages needed to deploy the website.
 
 ## How to Start the website
-### Navigate cnu-secure folder.
+### Navigate cnu-security folder.
 ### From there you can `npm start` to begin the react webiste.
 
 ## Start the database
@@ -25,17 +25,17 @@
 ## Download MySQL: 
 https://docs.google.com/document/d/1jFtu0PIMdgWXV0OyIOLhZZPAMRpZzsI3/edit?usp=sharing&ouid=100234241524818857751&rtpof=true&sd=true
 ## Implement the cnu_secure database shown in Figure 1.
-### Navigate to the cnu-secure folder and go into the Server folder.
+### Navigate to the cnu-security folder and go into the Server folder.
 ### command enter `node index.js` to start the database conenction.
 
 ## File Organization - Front End
-## cnu-secure > src here is were all of the routing and front end components are located. 
+## cnu-security > src here is were all of the routing and front end components are located. 
 ## Inside of the components folder is the pages folder and the cpmponents used globally
 ## In the pages folder is all of the individual pages
 
 
 ## File Organization - Back End
-## cnu-secure > Server here is were all of the routing and back end components are located. 
+## cnu-security > Server here is were all of the routing and back end components are located. 
 ## Index.js is the main file in here which established the database connection/
 
 
