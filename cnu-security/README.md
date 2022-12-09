@@ -1,12 +1,32 @@
 # CNU Secure
 
-## Start the website
-### Enter the program through the cnu-secure folder.
+## install Visual Studio Code
+### https://code.visualstudio.com/
+
+## install npm and Node js
+### https://docs.npmjs.com/downloading-and-installing-node-js-and-npm
+
+## Install React JS
+### https://reactjs.org/docs/getting-started.html
+
+
+## After Cloning the repo
+### Navigate cnu-secure folder.
+### type npm install into the terminal. This will
+### download all packages needed to deploy the website.
+
+## How to Start the website
+### Navigate cnu-secure folder.
 ### From there you can `npm start` to begin the react webiste.
 
 ## Start the database
-## Navigate to the cnu-secure folder and go into the Server folder.
-## command enter `node index.js` to start the database conenction.
+![image](https://user-images.githubusercontent.com/60855159/206810465-e7a16fc6-7709-472b-ac95-e27a0132d2aa.png)
+### Figure 1: cnu_secure Relationship Schema
+## Download MySQL: 
+https://docs.google.com/document/d/1jFtu0PIMdgWXV0OyIOLhZZPAMRpZzsI3/edit?usp=sharing&ouid=100234241524818857751&rtpof=true&sd=true
+## Implement the cnu_secure database shown in Figure 1.
+### Navigate to the cnu-secure folder and go into the Server folder.
+### command enter `node index.js` to start the database conenction.
 
 ## File Organization - Front End
 ## cnu-secure > src here is were all of the routing and front end components are located. 
